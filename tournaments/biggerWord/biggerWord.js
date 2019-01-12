@@ -11,7 +11,10 @@ function biggerWord(w) {
   
     var leftSwap = -1;
     for (var i = w.length - 2; i >= 0; i--) {
-        ...//if (w.charCodeAt(i + 1) >= w.charCodeAt(i)) leftSwap = i;
+        if (w.charCodeAt(i) < w.charCodeAt(i + 1)) {
+            leftSwap = i;
+            break;
+        }
     }
     if (leftSwap === -1) {
         return 'no answer';
@@ -27,5 +30,7 @@ function biggerWord(w) {
     while (leftSwap < rightSwap) {
         w = swap(w, leftSwap++, rightSwap--);
     }
+    
     return w;
 }
+    
