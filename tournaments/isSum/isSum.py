@@ -6,4 +6,4 @@ def isSum(value):
         sum += index
         index += 1
 
-    return value == s
+    return value == sum
