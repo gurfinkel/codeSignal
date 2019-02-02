@@ -5,7 +5,7 @@ function sumOfCoprimes(m) {
         var a = p;
         var b = m;
         while (a > 0) {
-            var tmp = a % b;
+            var tmp = b % a;
             b = a;
             a = tmp;
         }
@@ -17,5 +17,4 @@ function sumOfCoprimes(m) {
   
     return ans;
 }
-  
-  
+    
