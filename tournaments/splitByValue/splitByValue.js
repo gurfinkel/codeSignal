@@ -1,19 +1,19 @@
 function splitByValue(k, elements) {
-    const result = [];
     const n = elements.length;
+    const result = new Array(n);
+    let index = 0;
 
-    for (let i = 0; n > i; ++i) {
-        if (k > elements[i]) {
-            result.push(elements[i]);
+    for (const item of elements) {
+        if (k > item) {
+            result[index++] = item;
         }
     }
 
-    for (let i = 0; n > i; ++i) {
-        if (k <= elements[i]) {
-            result.push(elements[i]);
+    for (const item of elements) {
+        if (k <= item) {
+            result[index++] = item;
         }
     }
 
     return result;
 }
-    
