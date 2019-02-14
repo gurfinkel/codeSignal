@@ -1,12 +1,10 @@
 function swapDiagonals(matrix) {
-    for(let i = 0; i < Math.floor(matrix.length / 2); i++){
-        let temp = matrix[i][i]
-        matrix[i][i] = matrix[i][matrix.length - 1 - i]
-        matrix[i][matrix.length - 1 - i] = temp
-        
-        temp = matrix[matrix.length - 1 - i][i]
-        matrix[matrix.length - 1 - i][i] = matrix[matrix.length - 1 - i][matrix.length - 1- i]
-        matrix[matrix.length - 1 - i][matrix.length - 1- i] = temp
+    const n = matrix.length - 1;
+
+    for (let i = 0; (n + 1) / 2 > i; ++i) {
+        [matrix[i][i], matrix[i][n - i]] = [matrix[i][n - i], matrix[i][i]];
+        [matrix[n - i][i], matrix[n - i][n - i]] = [matrix[n - i][n - i], matrix[n - i][i]];
     }
-    return matrix
+
+    return matrix;
 }

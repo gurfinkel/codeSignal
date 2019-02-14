@@ -1,12 +1,11 @@
 function visitsOnCircularRoad(n, visitsOrder) {
+    let result = 0;
+    let a = 1;
 
-    var current = 1,
-        res = 0;
-    for (var i = 0; i < visitsOrder.length; i++) {
-        res += Math.min(Math.abs(visitsOrder[i] - current),
-                    n - Math.abs(visitsOrder[i] - current));
-        current = visitsOrder[i];
+    for (const item of visitsOrder) {
+        result += Math.min(Math.abs(item - a), n - Math.abs(item - a));
+        a = item;
     }
-    return res;
+
+    return result;
 }
-    
