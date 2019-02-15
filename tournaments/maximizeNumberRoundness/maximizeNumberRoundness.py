@@ -1,5 +1,5 @@
 def maximizeNumberRoundness(n):
-    n = str(n)
-    z = n.count('0')
+    a = str(n)
+    b = a.count('0')
 
-    return str(n)[:len(n) - z].count('0')
+    return a[:len(a) - b].count('0')
