@@ -1,15 +1,15 @@
 function unusualLexOrder(words) {
-    for(let i = 0; i < words.length; i++){
-        words[i] = words[i].split("").reverse().join("")
+    const n = words.length;
+
+    for (let i = 0; n > i; ++i) {
+        words[i] = [...words[i]].reverse().join('');
     }
-    
-    words.sort((a , b) => {
-        return a.localeCompare(b)
-    })
-    
-    for(let i = 0; i < words.length; i++){
-        words[i] = words[i].split("").reverse().join("")
+
+    words.sort((a, b) => {if (a > b) return 1; else if (a < b) return -1; else return 0;});
+
+    for (let i = 0; n > i; ++i) {
+        words[i] = [...words[i]].reverse().join('');
     }
-    
-    return words
+
+    return words;
 }
