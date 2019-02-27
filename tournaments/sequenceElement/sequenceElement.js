@@ -1,24 +1,20 @@
 function sequenceElement(a, n) {
-    var MOD = 1e5;
-    var seq = [];
-    for (var i = 0; i < 5; i++) {
-      seq.push(a[i]);
+    const mod = 1e5;
+
+    let hash = a[0] * 1e4 + a[1] * 1e3 + a[2] * 1e2 + a[3] * 10 + a[4];
+    let index = 4;
+    let store = new Map();
+
+    store.set(hash, index);
+
+    while (++index) {
+        a.push((a[index - 1] + a[index - 2] + a[index - 3] + a[index - 4] + a[index - 5]) % 10);
+        hash = (hash * 10 + a[index]) % mod;
+
+        if (store.has(hash)) {
+            return a[n % (index - store.get(hash))];
+        } else {
+            store.set(hash, index);
+        }
     }
-  
-    var lastFive = a[0] * 1e4 + a[1] * 1e3 +
-                   a[2] * 1e2 + a[3] * 10 + a[4];
-    var was = {};
-    was[lastFive] = 4;
-  
-    for (var i = 5;; i++) {
-      seq.push((seq[i - 1] + seq[i - 2] +
-                seq[i - 3] + seq[i - 4] + seq[i - 5]) % 10);
-      lastFive = (lastFive * 10 + seq[i]) % 100000;
-      if (lastFive in was) {
-        var last = was[lastFive];
-        return seq[n % (i - last)];
-      } else {
-        was[lastFive] = i;
-      }
-    }
-  }
+}
