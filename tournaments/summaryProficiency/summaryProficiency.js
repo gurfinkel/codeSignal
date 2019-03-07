@@ -1,11 +1,12 @@
 function summaryProficiency(a, n, m) {
-    let s = 0;
+    let result = 0;
 
-    a = a.filter(x => x >= m);
-    
-	for (let i = 0; n > i; ++i) {
-		s += a[i];
+    for (let i = 0; 0 < n && a.length > i; ++i) {
+        if (m <= a[i]) {
+            result += a[i];
+            --n;
+        }
     }
-    
-	return s;
+
+    return result;
 }
