@@ -17,6 +17,6 @@ function secondRightmostZeroBit(n) {
       }
       
       return Math.pow(2, result);
-    })(n) ;
+    })(n);
 }
     
