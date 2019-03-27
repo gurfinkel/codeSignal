@@ -1,17 +1,14 @@
 function firstMultiple(divisors, start) {
-
-    for (var answer = start; ; ++answer) {
-        var correct = true;
-        for (var i = 0; divisors.length > i; ++i) {
-            if (answer % divisors[i]) {
-                correct = false;
-                break;
-            }
-        }
-        
-        if (correct) {
-            return answer;
-        }
+    const getGcd = (a, b) => {
+        if (!a) return b;
+        return getGcd(b % a, a);
     }
+
+    const getLcm = (a, b) => {
+        return a * b / getGcd(a, b);
+    }
+
+    const lcm = divisors.reduce((x, y) => getLcm(x, y), 1);
+
+    return lcm * Math.ceil(start / lcm);
 }
-    

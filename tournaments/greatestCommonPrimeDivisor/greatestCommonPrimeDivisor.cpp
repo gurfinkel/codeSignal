@@ -1,13 +1,17 @@
 int greatestCommonPrimeDivisor(int a, int b) {
-    vector<int> prime = {2,3,5,7,9,11,13,17,19,23,29,31,37,41,43,47,53,57};
-    
-    for(int i = prime.size()-1; i>=0; i--){
-        if(a%prime[i] || b%prime[i]){
-            continue;
-        }
-        else if(a%prime[i] == 0 && b%prime[i] == 0){
-            return prime[i];
-        }
+
+  int gcd = -1;
+  for (int divisor = 2; a > 1 && b > 1; divisor++) {
+    if (0 == a % divisor && 0 == b % divisor) {
+      gcd = divisor;
     }
-    return -1;
+    while (a % divisor == 0) {
+      a /= divisor;
+    }
+    while (b % divisor == 0) {
+      b /= divisor;
+    }
+  }
+
+  return gcd;
 }
