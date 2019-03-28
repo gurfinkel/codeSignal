@@ -1,11 +1,11 @@
 bool checkFactorial(int n) {
-    int i = 1, fac = 1;
 
-    while (fac <= n) {
-        if (fac == n)
-            return true;
-        fac *= (++i);
+  for (int divisor = 2; n != 1; divisor++) {
+    if (n % divisor == 0) {
+      n /= divisor;
+    } else {
+      return false;
     }
-    
-    return false;
+  }
+  return true;
 }
