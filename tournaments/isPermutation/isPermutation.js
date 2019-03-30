@@ -1,4 +1,8 @@
 function isPermutation(n, inputArray) {
+    return inputArray.sort().join('') === Array.from(Array(1 + n).keys()).splice(1).join('');
+}
+
+function isPermutation(n, inputArray) {
 
     var countOccurences = [];
   
