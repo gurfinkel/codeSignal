@@ -5,7 +5,6 @@ bool isLucky(int n) {
     while (temp <= n) {
         var digit = (n % (temp * 10)) / temp;
         store.Push(digit);
-        Console.WriteLine(digit);
         temp *= 10;
     }
     
