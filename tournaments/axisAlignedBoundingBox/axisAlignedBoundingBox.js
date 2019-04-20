@@ -1,16 +1,16 @@
 function axisAlignedBoundingBox(x, y) {
+    const n = x.length;
+    let a = x[0];
+    let b = x[0];
+    let c = y[0];
+    let d = y[0];
 
-    var minX = x[0],
-        maxX = x[0],
-        minY = y[0],
-        maxY = y[0];
-  
-    for (var i = 1; i < x.length; i++) {
-      minX = Math.min(x[i], minX);
-      maxX = Math.max(x[i], maxX);
-      minY = Math.min(y[i], minY);
-      maxY = Math.max(y[i], maxY);
+    for (let i = 1; n > i; ++i) {
+        a = Math.min(a, x[i], a);
+        b = Math.max(b, x[i], b);
+        c = Math.min(c, y[i], c);
+        d = Math.max(d, y[i], d);
     }
-  
-    return (maxX - minX) * (maxY - minY);
-  }
+
+    return (b - a) * (d - c);
+}
