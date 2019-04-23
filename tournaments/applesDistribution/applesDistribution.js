@@ -1,7 +1,7 @@
 function applesDistribution(apples, boxCapacity, maxResidue) {
-    let ways = 0
-    for(let i = 0; i <= boxCapacity; i++){
-        if(apples % i <= maxResidue){ ways++ }
-    }
-    return ways
+    let result = 0;
+    for (let i = 0; boxCapacity >= i; ++i)
+        if(apples % i <= maxResidue)
+            ++result;
+    return result;
 }
