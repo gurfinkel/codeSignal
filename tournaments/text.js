@@ -181,3 +181,91 @@ assert.equal(secondReceiver.currentMessage, 'msg3', '11) Should have updated sec
 console.log('Phase 2 complete');
 */
 //----------------------------------------------------------------------------------
+
+// // analyse following function and find corresponding name for "secretFunction":
+// function secretFunction(arrayA: Array, arrayB: Array, index: Int): Array {
+//   return arrayB.length != 0 ? arrayA.slice(0, index).concat(arrayB).concat(arrayA.slice(index + 1)) : arrayA;
+// }
+// // mergeArray
+
+// var arrayA = ["a", "b", "c", "d"];
+// var arrayB = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+// var index = 2;
+
+// var result = ['a', 'b', "Banana", "Orange", "Lemon", "Apple", "Mango", "d"]
+
+
+// 1) Create two classes [1] MyDate (day, month, year) and [2] MyPoint (x, y)
+
+// 2) Create a "main" function and within it construct two variables "d"
+//    (MyDate with 31, 12, 2016) and "p" (MyPoint with 5.5, 10)
+
+// 3) Add a method called "printConstructor" to both MyDate and MyPoint
+//    that dumps the constructors for both d and p into the console.
+//
+//    The expected output in console should be the following strings:
+//       "new MyDate(31, 12, 2016)"
+//       "new MyPoint(5.5, 10)"
+
+// 4) Refactor the above code to use the visitor pattern to print both
+//    constructors. See the following links:
+//       https://dzone.com/articles/design-patterns-visitor
+
+
+// create PrintConstructVisitor
+class PrintConstructVisitor {
+  constructor(printMethod) {
+    this.printMethod = printMethod;
+  }
+
+  visit = (element) => {
+    if (element instanceof MyDate) {
+      printMethod(`new MyDate(${element.day}, ${element.month}, ${element.year})`);
+    } else if (element instanceof MyPoint) {
+      printMethod('new MyPoint(' + element.x + ', ' + element.y + ')');
+    }
+  }
+}
+
+class MyDate {
+  constructor(day, month, year) {
+    this.day = day;
+    this.month = month;
+    this.year = year;
+  }
+
+  printConstructor = () => {
+    console.log(`new MyDate(${this.day}, ${this.month}, ${this.year})`);
+  }
+
+  accept = (visitor) => {
+    visitor.visit(this);
+  }
+}
+
+class MyPoint {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  printConstructor = () => {
+    console.log('new MyPoint(' + this.x + ', ' + this.y + ')');
+  }
+
+  accept = (visitor) => {
+    visitor.visit(this);
+  }
+}
+
+function main() {
+  let d = new MyDate(31, 12, 2016);
+  let p = new MyPoint(5.5, 12);
+
+  const visitors = [d, p];
+  const printConstructVisitor = new PrintConstructVisitor(console.log);
+
+  visitors.forEach(item => item.accept(printConstructVisitor));
+}
+
+main();
