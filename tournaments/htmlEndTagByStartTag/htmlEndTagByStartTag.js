@@ -1,10 +1,9 @@
 function htmlEndTagByStartTag(startTag) {
-    let result = ['</'];
-    let position = 1;
+    const result = ['</'];
+    let a = 1;
 
-    while (startTag[position] !== ' ' && startTag[position] !== '>') {
-        result.push(startTag[position++]);
-    }
+    while (' ' !== startTag[a] && '>' !== startTag[a])
+        result.push(startTag[a++]);
 
     result.push('>');
 
