@@ -1,25 +1,20 @@
 function dfsComponentSize(matrix, vertex) {
+    const dfs = function(a) {
+        colors[a] = 'g';
+        ++result;
 
-    var dfs = function(currentVertex, visited) {
-        visited[currentVertex] = true;
-        componentSize++;
-        
-        for (var nextVertex = 0; nextVertex < matrix.length; nextVertex++) {
-            if (matrix[currentVertex][nextVertex] && !visited[nextVertex]) {
-                dfs(nextVertex, visited);
-            }
-        }
-    }
-  
-    var visited = [],
-        componentSize = 0;
-  
-    for (var i = 0; i < matrix.length; i++) {
-        visited.push(false);
-    }
-  
-    dfs(vertex, visited);
-  
-    return componentSize;
+        for (let i = 0; n > i; ++i)
+            if (matrix[a][i] && 'w' === colors[i])
+                dfs(i);
+
+        colors[a] = 'b';
+    };
+
+    const n = matrix.length;
+    const colors = new Array(n).fill('w');
+    let result = 0;
+
+    dfs(vertex);
+
+    return result;
 }
-    
