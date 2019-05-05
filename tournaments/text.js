@@ -190,3 +190,194 @@ function main() {
 }
 
 main();*/
+
+function howManyAgentsToAdd(noOfCurrentAgents, callsTimes) {
+  const n = callsTimes.length;
+  const callsStartTimes = new Array(n);
+  const callsEndTimes = new Array(n);
+
+  for (let index = 0; n > index; ++index) {
+    callsStartTimes[index] = callsTimes[index][0];
+    callsEndTimes[index] = callsTimes[index][1];
+  }
+
+  callsStartTimes.sort((a, b) => a - b);
+  callsEndTimes.sort((a, b) => a - b);
+
+  let result = 0;
+  let currentCallsCount = 0;
+  let i = 0;
+  let j = 0;
+
+  while (callsStartTimes.length > i && callsEndTimes.length > j) {
+    if (callsStartTimes[i] < callsEndTimes[j]) {
+      ++currentCallsCount;
+      ++i;
+      if (noOfCurrentAgents < currentCallsCount) {
+        result = Math.max(result, currentCallsCount - noOfCurrentAgents);
+      }
+    } else {
+      --currentCallsCount;
+      ++j;
+    }
+  }
+
+  return result;
+}
+
+function howManyAgentsToAddTest() {
+  const numberOfCustomerServiceExecutives = 1;
+  const timeStamps = [
+    [1481122000, 1481122020],
+    [1481122000, 1481122040],
+    [1481122030, 1481122035],
+  ];
+
+  assert.equal(howManyAgentsToAdd(numberOfCustomerServiceExecutives, timeStamps), 1, '1) Should be 1');
+}
+
+howManyAgentsToAddTest();
+
+class TrieNode {
+  constructor() {
+    this.arr = new Array(26);
+    this.isEnd = false;
+  }
+}
+
+class Trie {
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  insert(word) {
+    let p = this.root;
+    for (const letter of word) {
+      const index = letter.charCodeAt() - 'a'.charCodeAt();
+      if (p.arr[index]) {
+        p = p.arr[index];
+      } else {
+        const temp = new TrieNode();
+        p.arr[index] = temp;
+        p = temp;
+      }
+    }
+    p.isEnd = true;
+  };
+
+  search(word) {
+    const p = this.searchNode(word);
+    if (p === null) {
+      return false;
+    }
+
+    return p.isEnd;
+  };
+
+  searchNode(s) {
+    let p = this.root;
+    for (const letter of s) {
+      const index = letter.charCodeAt() - 'a'.charCodeAt();
+      if (p.arr[index]) {
+        p = p.arr[index];
+      } else {
+        return null;
+      }
+    }
+
+    if (p === this.root) {
+      return null;
+    }
+
+    return p;
+  }
+}
+
+function sortHotelList(keywords, hotelIds, reviews) {
+  let result = [];
+
+  if (!keywords || !reviews.length) {
+    return result;
+  }
+
+  const arrKeys = keywords.split(' ');
+
+  if (!arrKeys.length) {
+    return result;
+  }
+
+  const trie = new Trie();
+
+  for (const arrKey of arrKeys) {
+    trie.insert(arrKey);
+  }
+
+  const dict = new Map();
+
+  for (let i = 0; reviews.length > i; ++i) {
+    const arrReviews = reviews[i].toLowerCase().split(' ');
+    const count = arrReviews.reduce((total, item) => total + trie.search(item), 0);
+
+    if (!dict.has(hotelIds[i])) {
+      dict.set(hotelIds[i], count);
+    } else {
+      dict.set(hotelIds[i], dict.get(hotelIds[i]) + count);
+    }
+  }
+
+  if (0 < dict.size) {
+    result = [...dict.entries()].sort((a, b) => b[1] - a[1]).map(item => item[0]);
+  }
+
+  return result;
+}
+
+function sortHotelListTest() {
+  const keywords = 'breakfast beach citycenter location metro view staff price';
+  const hotelIds = [1, 2, 1, 1, 2];
+  const reviews = [
+    'This hotel has a nice view of the citycenter. The location is perfect.',
+    'The breakfast is ok. Regarding location, it is quite far from citycenter but price is cheap so it is worth.',
+    'Location is excellent, 5 minutes from citycenter. There is also a metro station very close to the hotel.',
+    "They said I couldn't take my dog and there were other guests with dogs! That is not fair.",
+    'Very friendly staff and good cost-benefit ration. Its location is a bit far from citycenter.'
+  ];
+
+  assert.deepEqual(sortHotelList(keywords, hotelIds, reviews), [2, 1], '1) Should be [2, 1]');
+}
+
+sortHotelListTest();
+
+getResult = function(arr) {
+  if (!arr || !arr.length) {
+    return [];
+  }
+
+  const n = arr.length;
+  const result = [arr[0]];
+  const token = -128;
+
+  for (let i = 1; n > i; ++i) {
+    let temp = arr[i] - arr[i - 1];
+    if (-127 > temp || 127 < temp) {
+      result.push(token);
+    }
+
+    result.push(temp);
+  }
+
+  return result;
+};
+
+triangle = function(a, b, c) {
+  if (0 >= a || 0 >= b || 0 >= c ) {
+    return 0;
+  }
+  if (a === b && b === c) {
+    return 1;
+  } else if ((a + b) > c && (a + c) > b && (b + c) > a) {
+    return 2;
+  } else {
+    return 0;
+  }
+};
