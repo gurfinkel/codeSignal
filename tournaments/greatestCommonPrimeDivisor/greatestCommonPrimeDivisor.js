@@ -1,23 +1,17 @@
 function greatestCommonPrimeDivisor(a, b) {
+    const isPrime = function(n) {
+        for (let i = 2; n > i; ++i)
+            if (!(n % i))
+                return false;
+        return true;
+    };
+
+    let result = -1;
     let min = Math.min(a, b);
-    let maxPrime = -1;
 
-    for (let i = 2; i <= min; ++i) {
-        if(isPrime(i) && a % i == 0 && b % i == 0 && maxPrime < i) { 
-            maxPrime = i;
-        }
-    }
-    
-    return maxPrime;
+    for (let i = 2; min >= i; ++i)
+        if (isPrime(i) && !(a % i) && !(b % i) && result < i)
+            result = i;
+
+    return result;
 }
-
-function isPrime(n) {
-    for (let i = 2; i < n; ++i) {
-        if (n % i == 0) { 
-            return false;
-        }
-    }
-
-    return true;
-}
-
