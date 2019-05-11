@@ -1,5 +1,5 @@
 function digitalSumSort(a) {
-    const getSum = (n) => {
+    const getSum = function(n) {
         let r = 0;
 
         while (0 < n) {
