@@ -1,9 +1,8 @@
 int sumOfMultiples(int n, int k) {
-    int sum = 0;
+    var result = 0;
 
-    for(int i = k; n >= i; i+= k) {
-        sum += i;
-    }
-    
-    return sum;
+    for (var i = k; n >= i; i += k)
+        result += i;
+
+    return result;
 }
