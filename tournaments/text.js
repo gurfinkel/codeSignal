@@ -381,3 +381,40 @@ triangle = function(a, b, c) {
     return 0;
   }
 };
+
+
+const getDistance = function(numRows, numCols, area) {
+  const getNeighbors = function(i, j) {
+    const r = [];
+    for (const [dRow, dCol] of [[1, 0], [0, 1], [-1, 0], [0, -1]]) {
+      if ((i + dRow) in area && (j + dCol) in area[0] && area[(i + dRow)][(j + dCol)]) {
+        r.push([(i + dRow), (j + dCol)]);
+        if (1 === area[(i + dRow)][(j + dCol)])
+          area[(i + dRow)][(j + dCol)] = 0;
+      }
+    }
+    return r;
+  };
+
+  area[0][0] = 0;
+  const distances = [];
+
+  const dfs = function(i = 0, j = 0, distance = 0) {
+    const neighbors = getNeighbors(i, j);
+    if (!neighbors.length) return;
+    ++distance;
+
+    for (const [x,y] of neighbors) {
+      if (9 === area[x][y]) {
+        distances.push(distance);
+        return;
+      } else {
+        dfs(x, y, distance);
+      }
+    }
+  };
+
+  dfs();
+
+  return !distances.length ? -1 : Math.min(...distances);
+};
