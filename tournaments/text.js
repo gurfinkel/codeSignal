@@ -418,3 +418,53 @@ const getDistance = function(numRows, numCols, area) {
 
   return !distances.length ? -1 : Math.min(...distances);
 };
+
+/*function getHexFromDec(inputDec) {
+    const result = [];
+    const hexDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+    let decValue = parseInt(inputDec);
+
+    while (0 < decValue) {
+        const mod = decValue % 16;
+        result.unshift(hexDigits[mod]);
+        decValue -= mod;
+        decValue /= 16;
+    }
+
+    return result.join('');
+}
+
+const test = require('assert');
+
+test.equal(getHexFromDec('16'), '10', '1) 16 == 10')
+test.equal(getHexFromDec('255'), 'FF', '1) 255 == FF');*/
+
+function getHotelsWithMinimumAverageReviewScore(min_score) {
+  const hotels = getHotels();
+  const reviews = getAllHotelReviews();
+  const result = [];
+  const store = new Map();
+  const hotelsMap = new Map();
+
+  for (const {score, hotel_id} of reviews) {
+    if (store.has(hotel_id)) {
+      store.set(hotel_id, store.get(hotel_id).push(score));
+    } else {
+      store.set(hotel_id, [score]);
+    }
+  }
+
+  for (const {hotel_id, name} of hotels) {
+    hotelsMap.set(hotel_id, name);
+  }
+
+  for (const item of store) {
+    const avr_score = item.value.reduce((total, a) => total+=a, 0)/item.value.length;
+    if (min_score < avr_score) {
+      const name = hotelsMap.get(item.key);
+      result.push({hotel_id: item.key, name: name, avg_score: avg_score});
+    }
+  }
+
+  return result;
+}
