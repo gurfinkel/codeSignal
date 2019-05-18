@@ -1,33 +1,35 @@
 function combs(comb1, comb2) {
-    var getMask = function(comb) {
-        var mask = 0;
-        for (var i = 0; i < comb.length; i++) {
-            var c = comb[i];
-            mask = (mask << 1) + (c === '*');
+    const getMask = function(comb) {
+        let mask = 0;
+        for (const item of comb) {
+            mask <<= 1;
+            mask += '*' === item;
         }
 
         return mask;
     };
-  
-    var m1 = getMask(comb1);
-    var m2 = getMask(comb2);
-    var len1 = comb1.length;
-    var len2 = comb2.length;
-    var answer = len1 + len2;
-    for (var i = -len1; i <= len2; i++) {
-        var tmp, length;
-        if (i < 0) {
-            tmp = m2 << (-i) & m1;
-            length = Math.max(-i + len2, len1);
+
+    const m1 = getMask(comb1);
+    const m2 = getMask(comb2);
+    const len1 = comb1.length;
+    const len2 = comb2.length;
+    let result = len1 + len2;
+
+    for (let i = -len1; len2 >= i; ++i) {
+        let a = 0;
+        let b = 0;
+
+        if (0 > i) {
+            a = m2 << (-i) & m1;
+            b = Math.max(-i + len2, len1);
         } else {
-            tmp = m1 << i & m2;
-            length = Math.max(i + len1, len2);
+            a = m1 << i & m2;
+            b = Math.max(i + len1, len2);
         }
-        if (tmp === 0 && answer > length) {
-            answer = length;
+        if (!a && result > b) {
+            result = b;
         }
     }
-  
-    return answer;
-}  
-  
+
+    return result;
+}
