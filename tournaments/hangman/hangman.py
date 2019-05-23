@@ -1,13 +1,14 @@
 def hangman(word, letters):
-    f=0
-    t=0
-    
-    for c in letters:
-        if 6 <= f:
+    result = 0
+    a = 0
+
+    for item in letters:
+        if 6 <= a:
             return False
-        x = word.count(c)
-        if 0 == x:
-            f += 1
+        b = word.count(item)
+        if 0 == b:
+            a += 1
         else:
-            t += x
-    return len(word) == t
+            result += b
+
+    return len(word) == result
