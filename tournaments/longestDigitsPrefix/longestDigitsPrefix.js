@@ -1,10 +1,10 @@
 function longestDigitsPrefix(inputString) {
-  const result = [];
+    const result = [];
 
-  for (const item of inputString) {
-      if ('0' <= item && '9' >= item) result.push(item);
-      else break;
-  }
+    for (const item of inputString) {
+        if ('0' <= item && '9' >= item) result.push(item);
+        else break;
+    }
 
-  return result.join('');
+    return result.join('');
 }
