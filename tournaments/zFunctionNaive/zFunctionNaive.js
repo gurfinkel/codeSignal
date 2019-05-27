@@ -1,9 +1,10 @@
 function zFunctionNaive(s) {
-    let result = [];
-    
-    for (let i = 0; s.length > i; ++i) {
+    const n = s.length;
+    const result = [];
+
+    for (let i = 0; n > i; ++i) {
         result.push(0);
-        for (let j = i; s.length > j; ++j) {
+        for (let j = i; n > j; ++j) {
             if (s[j] === s[result[i]]) {
                 ++result[i];
             } else {
@@ -11,6 +12,6 @@ function zFunctionNaive(s) {
             }
         }
     }
-    
+
     return result;
 }
