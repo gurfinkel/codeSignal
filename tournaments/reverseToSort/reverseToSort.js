@@ -1,26 +1,24 @@
 function reverseToSort(inputArray) {
+    const n = inputArray.length;
 
-    for (var i = 0; i < inputArray.length; i++) {
-        for (var j = i + 1; j <= inputArray.length; j++) {
-            var left = inputArray.slice(0, i),
-                middle = inputArray.slice(i, j).reverse(),
-                right = inputArray.slice(j, inputArray.length),
-                result = [],
-                correct = true;
-    
-            result = left.concat(middle.concat(right));
-    
-            for (var k = 1; k < result.length; k++) {
+    for (let i = 0; n > i; ++i) {
+        for (let j = i + 1; n >= j; ++j) {
+            let left = inputArray.slice(0, i);
+            let middle = inputArray.slice(i, j).reverse();
+            let right = inputArray.slice(j, n);
+            let a = 1;
+            let result = [...left, ...middle, ...right];
+
+            for (let k = 1; result.length > k; ++k) {
                 if (result[k - 1] >= result[k]) {
-                    correct = false;
+                    a = 0;
                     break;
                 }
             }
-            if (correct) {
-                return true;
-            }
+
+            if (a) return true;
         }
     }
+
     return false;
-} 
-  
+}

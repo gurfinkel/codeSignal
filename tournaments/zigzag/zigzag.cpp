@@ -16,7 +16,7 @@ int zigzag(std::vector<int> a) {
       }
       right++;
     }
-    best = std::max(best, right-left);
+    best = std::max(best, right - left);
     left = right;
     if (left < a.size() && a[left - 1] != a[left]) {
       left--;

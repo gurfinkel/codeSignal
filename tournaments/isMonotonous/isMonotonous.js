@@ -1,14 +1,13 @@
 function isMonotonous(sequence) {
-    if (1 === sequence.length) {
-        return true;
-    }
+    const n = sequence.length;
+
+    if (1 === n) return true;
     
-    let direction = sequence[1] - sequence[0];
+    const a = sequence[1] - sequence[0];
     
-    for (let i = 0; sequence.length - 1 > i; ++i) {
-        if (0 >= direction * (sequence[i + 1] - sequence[i])) {
+    for (let i = 0; n - 1 > i; ++i)
+        if (0 >= a * (sequence[i + 1] - sequence[i]))
             return false;
-        }
-    }
+
     return true;
 }
