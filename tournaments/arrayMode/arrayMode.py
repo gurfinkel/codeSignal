@@ -1,5 +1,5 @@
 def arrayMode(sequence):
     from collections import Counter
 
-    r = [x for x, _ in Counter(sequence).most_common(1)]
-    return r[0]
+    store = [a for a, _ in Counter(sequence).most_common(1)]
+    return store[0]
