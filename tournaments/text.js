@@ -468,3 +468,13 @@ function getHotelsWithMinimumAverageReviewScore(min_score) {
 
   return result;
 }
+
+// Find Nth nearest neighbours in a graph.
+// Interviewers do give hints if you're not going in the right direction but if you fail to catch them and correct your solution, that shows rigid mentality and it's a big negative sign.
+//  - Bonus points for being proactive in finding edge cases and bugs in your code/design and correcting them.
+// It needs basic knowledge of Load Balancers, DB Sharding, In-Memory Caches and products like Redis, fast-config lookup such as ZooKeeper, and of-course the ability to knit them altogether.
+// determine the type of polygon
+// Stack implementation (thread safe)
+// It was a really relaxed and interesting interview, where he asked me if I knew the business model of Booking.com, what I would have changed in the site (asking to elaborate quite a bit on my replies), how I would decide if a feature under testing should be made permanent or not.
+// Retweet twitter tweets if newer one is an anagram of older  one.
+// Find how many moves it takes from point A in a maze to  point B.
