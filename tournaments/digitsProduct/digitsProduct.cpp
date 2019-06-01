@@ -24,7 +24,7 @@ int digitsProduct(int product) {
 
 
   for (int i = (int)answerDigits.size() - 1; i >= 0; i--) {
-    answer = answerDigits[i] + 10 * answer;
+    answer = 10 * answer + answerDigits[i];
   }
   return answer;
 }
