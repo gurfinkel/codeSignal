@@ -442,7 +442,7 @@ test.equal(getHexFromDec('255'), 'FF', '1) 255 == FF');*/
 function getHotelsWithMinimumAverageReviewScore(min_score) {
   const hotels = getHotels();
   const reviews = getAllHotelReviews();
-  const result = [];
+  const result = []; result.s
   const store = new Map();
   const hotelsMap = new Map();
 
