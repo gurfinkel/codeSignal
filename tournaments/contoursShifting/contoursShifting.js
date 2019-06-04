@@ -1,31 +1,60 @@
 function contoursShifting(matrix) {
-  const rws = matrix.length;
-  const cls = matrix[0].length;
-  const tLength = rws*cls;
-  const tmp = () => Array(rws).fill([]).map(_ => Array(cls).fill(0));
+  const getEmptyMatrix = function(){
+    return Array(rows).fill([]).map(_ => Array(cols).fill(0));
+  };
 
-  crs = Array(tLength).fill(1);
-  for (let x = 0; x < 2; x++) {
-    tp = 0, rt = 1, bm = rws-1, lt = bm-1, ix = 0, c = [], r = tmp();
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+  const tLength = rows*cols;
+
+  let result = [];
+  let crs = Array(tLength).fill(1);
+
+  for (let x = 0; 2 > x; ++x) {
+    let tp = 0;
+    let rt = 1;
+    let bm = rows - 1;
+    let lt = bm - 1;
+    let ix = 0;
+    let c = [];
+    result = getEmptyMatrix();
+
     while (tLength > c.length) {
-      t = []
-      while((i = r[tp].indexOf(0))>-1) {t.push(matrix[tp][i]); r[tp][i]=crs.shift() }
+      let t = [];
+      while(~(i = result[tp].indexOf(0))) {
+        t.push(matrix[tp][i]);
+        result[tp][i] = crs.shift();
+      }
 
-      while(rt<rws&&(i = r[rt].lastIndexOf(0))>-1) {t.push(matrix[rt][i]); r[rt++][i]=crs.shift()}
+      while(rows > rt && ~(i = result[rt].lastIndexOf(0))) {
+        t.push(matrix[rt][i]);
+        result[rt++][i] = crs.shift();
+      }
 
-      while((i = r[bm].lastIndexOf(0))>-1) {t.push(matrix[bm][i]); r[bm][i]=crs.shift()}
+      while(~(i = result[bm].lastIndexOf(0))) {
+        t.push(matrix[bm][i]);
+        result[bm][i] = crs.shift();
+      }
 
-      while(lt>tp&&(i = r[lt].indexOf(0))>-1) {t.push(matrix[lt][i]); r[lt--][i]=crs.shift()}
+      while(lt > tp && ~(i = result[lt].indexOf(0))) {
+        t.push(matrix[lt][i]);
+        result[lt--][i] = crs.shift();
+      }
 
-      if (ix++%2) {tt = t.shift(); t = [...t, tt]}
-      else t = [t.pop(),...t]
-      c = [...c,...t]
-      tp++
-      bm--
-      rt = tp+1
-      lt = bm-1
+      if (ix++&1) {
+        let tt = t.shift();
+        t = [...t, tt];
+      } else t = [t.pop(),...t];
+
+      c = [...c,...t];
+      ++tp;
+      --bm;
+      rt = 1 + tp;
+      lt = bm - 1;
     }
-    crs = c
+
+    crs = c;
   }
-  return r
+
+  return result;
 }
