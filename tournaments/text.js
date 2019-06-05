@@ -191,7 +191,7 @@ function main() {
 
 main();*/
 
-function howManyAgentsToAdd(noOfCurrentAgents, callsTimes) {
+/*function howManyAgentsToAdd(noOfCurrentAgents, callsTimes) {
   const n = callsTimes.length;
   const callsStartTimes = new Array(n);
   const callsEndTimes = new Array(n);
@@ -223,14 +223,49 @@ function howManyAgentsToAdd(noOfCurrentAgents, callsTimes) {
   }
 
   return result;
+}*/
+
+function howManyAgentsToAdd(agents, timeStamps) {
+  const n = timeStamps.length;
+  const starts = Array(n);
+  const ends = Array(n);
+  let currentAgents = 0;
+  let result = 0;
+  let sIndex = 0;
+  let eIndex = 0;
+
+  timeStamps.reduce((index, item) => {
+    starts[index] = item[0];
+    ends[index] = item[1];
+    return ++index;
+  }, 0);
+
+  starts.sort((a, b) => a - b);
+  ends.sort((a, b) => a - b);
+
+  while (n > sIndex) {
+    if (starts[sIndex] < ends[eIndex]) {
+      ++currentAgents;
+      ++sIndex;
+
+      if (agents < currentAgents) {
+        result = Math.max(result, currentAgents - agents);
+      }
+    } else {
+      --currentAgents;
+      ++eIndex;
+    }
+  }
+
+  return result;
 }
 
 function howManyAgentsToAddTest() {
   const numberOfCustomerServiceExecutives = 1;
   const timeStamps = [
     [1481122000, 1481122020],
-    [1481122000, 1481122040],
     [1481122030, 1481122035],
+    [1481122000, 1481122040],
   ];
 
   assert.equal(howManyAgentsToAdd(numberOfCustomerServiceExecutives, timeStamps), 1, '1) Should be 1');
