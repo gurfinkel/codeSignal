@@ -191,40 +191,6 @@ function main() {
 
 main();*/
 
-/*function howManyAgentsToAdd(noOfCurrentAgents, callsTimes) {
-  const n = callsTimes.length;
-  const callsStartTimes = new Array(n);
-  const callsEndTimes = new Array(n);
-
-  for (let index = 0; n > index; ++index) {
-    callsStartTimes[index] = callsTimes[index][0];
-    callsEndTimes[index] = callsTimes[index][1];
-  }
-
-  callsStartTimes.sort((a, b) => a - b);
-  callsEndTimes.sort((a, b) => a - b);
-
-  let result = 0;
-  let currentCallsCount = 0;
-  let i = 0;
-  let j = 0;
-
-  while (callsStartTimes.length > i && callsEndTimes.length > j) {
-    if (callsStartTimes[i] < callsEndTimes[j]) {
-      ++currentCallsCount;
-      ++i;
-      if (noOfCurrentAgents < currentCallsCount) {
-        result = Math.max(result, currentCallsCount - noOfCurrentAgents);
-      }
-    } else {
-      --currentCallsCount;
-      ++j;
-    }
-  }
-
-  return result;
-}*/
-
 function howManyAgentsToAdd(agents, timeStamps) {
   const n = timeStamps.length;
   const starts = Array(n);
@@ -263,12 +229,15 @@ function howManyAgentsToAdd(agents, timeStamps) {
 function howManyAgentsToAddTest() {
   const numberOfCustomerServiceExecutives = 1;
   const timeStamps = [
+    [1481122000, 1481122010],
     [1481122000, 1481122020],
+    [1481122005, 1481122020],
+    [1481122025, 1481122030],
     [1481122030, 1481122035],
     [1481122000, 1481122040],
   ];
 
-  assert.equal(howManyAgentsToAdd(numberOfCustomerServiceExecutives, timeStamps), 1, '1) Should be 1');
+  assert.equal(howManyAgentsToAdd(numberOfCustomerServiceExecutives, timeStamps), 3, '1) Should be 3');
 }
 
 howManyAgentsToAddTest();
@@ -286,45 +255,31 @@ class Trie {
   }
 
   insert(word) {
-    let p = this.root;
+    const aCode = 'a'.charCodeAt();
+    let currentNode = this.root;
     for (const letter of word) {
-      const index = letter.charCodeAt() - 'a'.charCodeAt();
-      if (p.arr[index]) {
-        p = p.arr[index];
-      } else {
-        const temp = new TrieNode();
-        p.arr[index] = temp;
-        p = temp;
+      const index = letter.charCodeAt() - aCode;
+      if (!currentNode.arr[index]) {
+        currentNode.arr[index] = new TrieNode();
       }
+      currentNode = currentNode.arr[index];
     }
-    p.isEnd = true;
-  };
+    currentNode.isEnd = true;
+  }
 
   search(word) {
-    const p = this.searchNode(word);
-    if (p === null) {
-      return false;
-    }
-
-    return p.isEnd;
-  };
-
-  searchNode(s) {
-    let p = this.root;
-    for (const letter of s) {
-      const index = letter.charCodeAt() - 'a'.charCodeAt();
-      if (p.arr[index]) {
-        p = p.arr[index];
+    const aCode = 'a'.charCodeAt();
+    let currentNode = this.root;
+    for (const letter of word) {
+      const index = letter.charCodeAt() - aCode;
+      if (currentNode.arr[index]) {
+        currentNode = currentNode.arr[index];
       } else {
-        return null;
+        return false;
       }
     }
 
-    if (p === this.root) {
-      return null;
-    }
-
-    return p;
+    return currentNode.isEnd && this.root !== currentNode;
   }
 }
 
@@ -505,11 +460,15 @@ function getHotelsWithMinimumAverageReviewScore(min_score) {
 }
 
 // Find Nth nearest neighbours in a graph.
-// Interviewers do give hints if you're not going in the right direction but if you fail to catch them and correct your solution, that shows rigid mentality and it's a big negative sign.
+// Interviewers do give hints if you're not going in the right direction but if you fail to catch them and correct your solution,
+// that shows rigid mentality and it's a big negative sign.
 //  - Bonus points for being proactive in finding edge cases and bugs in your code/design and correcting them.
-// It needs basic knowledge of Load Balancers, DB Sharding, In-Memory Caches and products like Redis, fast-config lookup such as ZooKeeper, and of-course the ability to knit them altogether.
+// It needs basic knowledge of Load Balancers, DB Sharding, In-Memory Caches and products like Redis,
+// fast-config lookup such as ZooKeeper, and of-course the ability to knit them altogether.
 // determine the type of polygon
 // Stack implementation (thread safe)
-// It was a really relaxed and interesting interview, where he asked me if I knew the business model of Booking.com, what I would have changed in the site (asking to elaborate quite a bit on my replies), how I would decide if a feature under testing should be made permanent or not.
+// It was a really relaxed and interesting interview, where he asked me if I knew the business model of Booking.com,
+// what I would have changed in the site (asking to elaborate quite a bit on my replies),
+// how I would decide if a feature under testing should be made permanent or not.
 // Retweet twitter tweets if newer one is an anagram of older  one.
 // Find how many moves it takes from point A in a maze to  point B.
