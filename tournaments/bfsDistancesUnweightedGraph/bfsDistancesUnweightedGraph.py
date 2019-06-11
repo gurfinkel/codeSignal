@@ -1,16 +1,17 @@
 def bfsDistancesUnweightedGraph(matrix, startVertex):
     from collections import deque
 
-    frontier = deque([(startVertex, 0)])
-    distances = [0]*(len(matrix))
-    explored = set([startVertex])
+    n = len(matrix)
+    queue = deque([startVertex])
+    result = [-1] * n
+    result[startVertex] = 0
 
-    while frontier:
-        current, depth= frontier.pop()
-        distances[current] = depth
-        for nei in range(len(matrix)):
-            if matrix[current][nei] and nei not in explored:
-                frontier.appendleft((nei, depth + 1))
-                explored.add(nei)
+    while queue:
+        current = queue.pop()
 
-    return distances
+        for nextVertex in range(n):
+            if -1 == result[nextVertex] and matrix[current][nextVertex]:
+                queue.appendleft(nextVertex)
+                result[nextVertex] = 1 + result[current]
+
+    return result

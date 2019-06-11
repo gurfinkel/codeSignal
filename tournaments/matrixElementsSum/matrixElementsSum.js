@@ -16,3 +16,16 @@ function matrixElementsSum(matrix) {
 
     return result;
 }
+
+function matrixElementsSum(matrix) {
+    let result = 0;
+
+    for (let i = 0; i in matrix[0]; ++i) {
+        for (let j = 0; j in matrix; ++j) {
+            if (!matrix[j][i]) break;
+            result += matrix[j][i];
+        }
+    }
+
+    return result;
+}
