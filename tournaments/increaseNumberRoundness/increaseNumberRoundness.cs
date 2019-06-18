@@ -12,7 +12,7 @@ bool increaseNumberRoundness(int n) {
             }
         } else {
             if (isZeroFound) {
-                return true;;
+                return true;
             } else {
                 isNotZeroFound = true;
             }
