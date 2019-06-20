@@ -10,10 +10,12 @@ function coolString(inputString) {
     let a = isLower(inputString[0]);
     let b = isUpper(inputString[0]);
 
-    if (!(a || b)) return false;
+    if (!a && !b) return false;
 
-    for (let i = 1; inputString.length > i; ++i) {
-        if (i % 2) {
+    const n = inputString.length;
+
+    for (let i = 1; n > i; ++i) {
+        if (i & 1) {
             if (isLower(inputString[i]) === a || isUpper(inputString[i]) === b) return false;
         }
         else if (isLower(inputString[i]) !== a || isUpper(inputString[i]) !== b) return false;

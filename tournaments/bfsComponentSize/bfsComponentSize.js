@@ -1,4 +1,26 @@
 function bfsComponentSize(matrix) {
+    const n = matrix.length;
+    const visited = new Array(n).fill(false);
+    const store = [1];
+    let result = 0;
+
+    while (store.length) {
+        const a = store.shift();
+        visited[a] = true;
+        ++result;
+
+        for (let i = 0; n > i; ++i) {
+            if (matrix[a][i] && !visited[i]) {
+                visited[i] = true;
+                store.push(i);
+            }
+        }
+    }
+
+    return result;
+}
+
+function bfsComponentSize(matrix) {
 
     var visited = [];
     var queue = [];
