@@ -1,29 +1,24 @@
 int[] weakNumbers(int n) {
-    if (5 > n) {
-		return new int[] {0, n};
-	}
-
+    if (5 > n) return new int[] {0, n};
 	var store = new int[n + 1, 2];
 
-	for (int i = 1; n >= i; ++i) {
+    for (var i = 1; n >= i; ++i) {
 		var tempWeakness = 0;
-		var tempDivisors = divCount(i);
-
-		for (int j = 1; i > j; ++j) {
+		var tempDivisors = getDivisorsNumber(i);
+        for (int j = 1; i > j; ++j) {
 			if (tempDivisors < store[j, 0]) {
 				++tempWeakness;
 			}
 		}
-
-		store[i, 0] = tempDivisors;
+        store[i, 0] = tempDivisors;
 		store[i, 1] = tempWeakness;
 	}
 
-	var weaknessResult = 0;
+    var weaknessResult = 0;
 	var numberResult = 1;
-	var divisors = divCount(n);
+	var divisors = getDivisorsNumber(n);
 
-	for (int i = 1; n >= i; ++i) {
+    for (int i = 1; n >= i; ++i) {
 		if (store[i, 1] == weaknessResult) {
 			++numberResult;
 		} else if (store[i, 1] > weaknessResult) {
@@ -32,20 +27,15 @@ int[] weakNumbers(int n) {
 		}
 	}
 
-	return new int[2] {weaknessResult, numberResult};
+    return new int[2] {weaknessResult, numberResult};
 }
 
-int divCount(int n) {
-    int cnt = 0;
-    for (int i = 1; i <= Math.Sqrt(n); i++) {
-        if (n % i == 0) {
-            if (n / i == i) {
-				cnt++;
-			} else {
-				cnt = cnt + 2;
-			}
+int getDivisorsNumber(int n) {
+    var result = 0;
+    for (var i = 1; Math.Sqrt(n) >= i; ++i) {
+        if (0 == n % i) {
+            result = (n / i == i) ? result + 1 : result + 2;
         }
     }
-
-    return cnt;
+    return result;
 }
