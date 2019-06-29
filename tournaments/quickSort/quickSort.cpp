@@ -1,7 +1,6 @@
-int[] quickSort(int[] a, int l, int r) {
-
+void quickSortWithReference(std::vector<int>& a, int l, int r) {
   if (l >= r) {
-    return a;
+    return;
   }
 
   int x = a[l];
@@ -24,8 +23,11 @@ int[] quickSort(int[] a, int l, int r) {
     }
   }
 
-  quickSort(a, l, j);
-  quickSort(a, i, r);
+  quickSortWithReference(a, l, j);
+  quickSortWithReference(a, i, r);
+}
 
+std::vector<int> quickSort(std::vector<int> a, int l, int r) {
+  quickSortWithReference(a, l, r);
   return a;
 }
