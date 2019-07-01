@@ -11,7 +11,7 @@ function lineEncoding(s) {
             }
             result.push(s[i - 1]);
         } else {
-            ++count
+            ++count;
         }
     }
 
