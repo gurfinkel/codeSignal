@@ -12,5 +12,5 @@ int smallestMultiple(int left, int right) {
         if (correct) {
             return candidate;
         }
-  }
+    }
 }
