@@ -10,6 +10,5 @@ function newNumeralSystem(number) {
         --b;
     }
 
-
     return result;
 }
