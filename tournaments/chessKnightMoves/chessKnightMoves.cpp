@@ -2,7 +2,10 @@ int chessKnightMoves(std::string cell) {
 
   struct Helper {
     bool isValid(int pos) {
-      return 0 <= pos && 7 >= pos;
+      if (0 <= pos && pos < 8) {
+        return true;
+      }
+      return false;
     }
 
     int getX(std::string pos) {
