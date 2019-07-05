@@ -1,4 +1,5 @@
 string caseUnification(string inputString) {
+    var result = new StringBuilder(inputString.Length);
     var l = 0;
     var u = 0;
     
@@ -6,8 +7,6 @@ string caseUnification(string inputString) {
         if (char.IsUpper(item)) ++u;
         else ++l;
     }
-    
-    var result = new StringBuilder(inputString.Length);
     
     foreach (var item in inputString) {
         if (u < l) result.Append(char.ToLower(item));

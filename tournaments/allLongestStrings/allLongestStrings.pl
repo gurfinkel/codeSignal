@@ -8,9 +8,9 @@ sub allLongestStrings {
     my $result = [];
 
     foreach my $item (@$inputArray) {
-        if (!length @$result || length @$result[0] == length $item) {
+        if (!scalar(@$result) || length(@$result[0]) == length($item)) {
             push $result, $item;
-        } elsif (length @$result[0] < length $item) {
+        } elsif (length(@$result[0]) < length($item)) {
             $result = [$item];
         }
     }

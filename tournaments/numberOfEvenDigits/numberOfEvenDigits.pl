@@ -5,8 +5,6 @@ use warnings FATAL => 'all';
 sub numberOfEvenDigits {
     my ($n) = @_;
 
-    use integer;
-
     my $result = 0;
 
     while (0 < $n) {
@@ -14,7 +12,7 @@ sub numberOfEvenDigits {
             ++$result;
         }
 
-        $n /= 10;
+        $n = int($n / 10);
     }
 
     return $result;
