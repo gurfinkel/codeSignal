@@ -7,13 +7,13 @@ sub distinctDistances {
 
     my $result = 1;
 
-    if (@$distances[1] != @$distances[0]) {
+    if ($$distances[1] != @$distances[0]) {
         ++$result;
     }
-    if (@$distances[1] != @$distances[2]) {
+    if ($$distances[1] != @$distances[$#$distances]) {
         ++$result;
     }
-    if (@$distances[0] + @$distances[1] < @$distances[2]) {
+    if ($$distances[1] + @$distances[0] < @$distances[$#$distances]) {
         ++$result;
     }
 

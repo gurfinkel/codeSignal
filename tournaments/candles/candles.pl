@@ -11,7 +11,7 @@ sub candles {
     while (0 < $candlesNumber) {
         $result += $candlesNumber;
         $temp += $candlesNumber;
-        $candlesNumber = int $temp / $makeNew;
+        $candlesNumber = int($temp / $makeNew);
         $temp %= $makeNew;
     }
 
