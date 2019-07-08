@@ -4,7 +4,7 @@ int adjacentElementsProduct(std::vector<int> inputArray) {
       cur = best;
   for (int i = 1; i < (int)inputArray.size() - 1; i++) {
     cur = inputArray[i] * inputArray[i + 1];
-    if (cur > best) {
+    if (best < cur) {
       best = cur;
     }
   }

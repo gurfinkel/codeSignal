@@ -10,7 +10,8 @@ function arrayCenter(a) {
     }
 
     for (let i = 0; n > i; ++i)
-        if (Math.abs(n * a[i] - sum) < n * min) result.push(a[i]);
+        if (Math.abs(n * a[i] - sum) < n * min)
+            result.push(a[i]);
 
     return result;
 }

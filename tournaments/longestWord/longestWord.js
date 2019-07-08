@@ -3,8 +3,8 @@ function longestWord(text) {
     let result = '';
 
     for (const word of words)
-      if (result.length < word.length)
-        result = word;
+        if (result.length < word.length)
+            result = word;
 
     return result;
 }

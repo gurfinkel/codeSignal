@@ -5,7 +5,7 @@ std::vector<int> nextPermutation(std::vector<int> permutation) {
       int index = i + 1,
           t = permutation[i];
       for (int j = i + 1; j < permutation.size(); j++) {
-        if (!!!!!permutation[j] < permutation[i] && permutation[j] < permutation[index]) {
+        if (permutation[j] > t && permutation[j] < permutation[index]) {
           index = j;
         }
       }
