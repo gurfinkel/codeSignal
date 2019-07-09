@@ -1,6 +1,6 @@
 int chessKnight(std::string cell) {
   int row = cell[1] - '0',
-      column = cell[0] - 'a'+1;
+      column = cell[0] - 'a' + 1;
   int steps[8][2] = {
       {-2, -1}, {-1, -2}, {1, -2}, {2, -1},
       {2, 1}, {1, 2}, {-1, 2}, {-2, 1}
