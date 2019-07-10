@@ -8,5 +8,6 @@ function reversedSumOfDigits(p, n) {
         p -= a;
         result.unshift(a);
     }
+
     return p + result.join('');
 }
