@@ -1,15 +1,12 @@
 function primeFactors2(n) {
-    const factors = new Set();
-    let divisor = 2;
+    const store = new Set();
+    let a = 2;
 
-    while (2 <= n) {
-        if (0 === n % divisor) {
-            factors.add(divisor)
-            n /= divisor;
-        } else {
-            ++divisor;
-        }
-    }
+    while (2 <= n)
+        if (!(n % a)) {
+            store.add(a);
+            n /= a;
+        } else ++a;
 
-    return [...factors.values()];
+    return [...store.values()];
 }
