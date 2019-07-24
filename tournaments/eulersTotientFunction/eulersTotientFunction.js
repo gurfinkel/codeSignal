@@ -1,19 +1,16 @@
 function eulersTotientFunction(n) {
-    var divisor = 2,
-        result = n;
+    let result = n;
+    let a = 2;
 
-    while (divisor * divisor <= n) {
-        if (n % divisor === 0) {
-            while (n % divisor === 0) {
-                n /= divisor;
-            }
-            result -= result / divisor;
+    while (n >= a * a) {
+        if (!(n % a)) {
+            while (!(n % a)) n /= a;
+            result -= result / a;
         }
-        divisor++;
+        ++a;
     }
-    if (n > 1) {
-        result -= result / n;
-    }
+
+    if (n > 1) result -= result / n;
 
     return result;
 }
