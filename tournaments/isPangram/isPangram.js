@@ -1,26 +1,15 @@
 function isPangram(sentence) {
-    var found = [],
-        result = true;
-        
-    for (var i = 0; i < 26; i++) {
-        found.push(false);
-    }
-    for (var i = 0; i < sentence.length; i++) {
-        var code = sentence.charCodeAt(i);
-        if ('A'.charCodeAt(0) <= code && code <= 'Z'.charCodeAt(0)) {
-            code += 'a'.charCodeAt(0) - 'A'.charCodeAt(0);
-        }
-        if ('a'.charCodeAt(0) <= code && code <= 'z'.charCodeAt(0)) {
-            found[code - 'a'.charCodeAt(0)] = true;
-        }
-    }
-  
-    for (var i = 0; i < 26; i++) {
-        if (!found[i]) {
-            result = false;
-        }
-    }
-  
-    return result;
+    const lCode = 'a'.charCodeAt();
+    const uCode = 'A'.charCodeAt();
+    const store = new Array(26).fill(0);
+
+    for (const item of sentence)
+        if ('a' <= item && 'z' >= item) store[item.charCodeAt() - lCode] = 1;
+        else if ('A' <= item && 'Z' >= item) store[item.charCodeAt() - uCode] = 1;
+
+    for (const item of store)
+        if (!item)
+            return false;
+
+    return true;
 }
-    

@@ -1,19 +1,17 @@
 function kuromasuPuzzle(board) {
-    const result = [];
+    const result = Array(board.length).fill([]).map(_ => Array(board[0].length).fill(-1));
 
     for (let i in board) {
-      result.push([]);
-      for (let j in col = board[i]) {
-        let t = -1;
-        if ('#' === col[j]) {
-          t = 1;
-          for (k=j-1; (B = col[k--]) == '.' || B == '#'; ) ++t;
-          for (k=+j+1; (B = col[k++]) == '.' || B == '#'; ) ++t;
-          for (k=i-1; (B = board[k--]) && (B[j] == '.' || B[j] == '#'); ) ++t;
-          for (k=+i+1; (B = board[k++]) && (B[j] == '.' || B[j] == '#'); ) ++t;
+        for (let j in board[i]) {
+            if ('#' === board[i][j]) {
+                let a = 1;
+                for (let k = j - 1; (b = board[i][k--]) === '.' || '#' === b; ) ++a;
+                for (let k = +j + 1; (b = board[i][k++]) === '.' || '#' === b; ) ++a;
+                for (let k = i - 1; (b = board[k--]) && ('.' === b[j] || '#' === b[j]); ) ++a;
+                for (let k = +i + 1; (b = board[k++]) && ('.' === b[j] || '#' === b[j]); ) ++a;
+                result[i][j] = a;
+            }
         }
-        result[i][j] = t;
-      }
     }
 
     return result;
