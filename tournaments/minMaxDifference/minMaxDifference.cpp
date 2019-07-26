@@ -11,5 +11,5 @@ int minMaxDifference(std::vector<int> inputArray) {
       indexOfMaximum = i;
     }
   }
-  return std::abs(inputArray[indexOfMaximum] - inputArray[indexOfMinimum]);
+  return inputArray[indexOfMaximum] - inputArray[indexOfMinimum];
 }

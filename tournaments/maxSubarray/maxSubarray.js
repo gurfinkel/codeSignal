@@ -1,11 +1,11 @@
 function maxSubarray(inputArray) {
-    var currentMax = 0;
-    var max = 0;
+    let result = 0;
+    let a = 0;
 
-    for (var i = 0; i < inputArray.length; i++) {
-        currentMax = Math.max(0, currentMax + inputArray[i]);
-        max = Math.max(max, currentMax);
+    for (let i = 0; inputArray.length > i; ++i) {
+        a = Math.max(0, a + inputArray[i]);
+        result = Math.max(result, a);
     }
 
-    return max;
+    return result;
 }

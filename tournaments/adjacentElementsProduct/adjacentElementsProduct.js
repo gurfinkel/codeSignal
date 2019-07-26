@@ -1,15 +1,8 @@
 function adjacentElementsProduct(inputArray) {
+    let result = inputArray[0] * inputArray[1];
 
-    var best = inputArray[0] * inputArray[1],
-        cur = best;
+    for (let i = 1; inputArray.length - 1 > i; ++i)
+        result = Math.max(result, inputArray[i] * inputArray[i + 1]);
 
-    for (var i = 1; i < inputArray.length - 1; i++) {
-        cur = inputArray[i] * inputArray[i + 1];
-        if (best < cur) {
-            best = cur;
-        }
-    }
-
-    return best;
+    return result;
 }
-    
