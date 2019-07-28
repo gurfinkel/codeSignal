@@ -1,10 +1,10 @@
 function countSumOfTwoRepresentations3(n, l, r) {
     let result = 0;
+    let a = 1;
 
-    for (let i = 1; n - 1 >= i; ++i) {
-        if (n - i <= r && l <= i ) {
-            ++result;
-        }
+    while (n >= 2 * a) {
+        if (l <= a && r >= n - a) ++result;
+        ++a;
     }
 
     return result;
