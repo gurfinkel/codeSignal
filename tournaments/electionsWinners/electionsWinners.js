@@ -1,27 +1,21 @@
 function electionsWinners(votes, k) {
+    let max = Number.MIN_SAFE_INTEGER;
+    let maxCount = 0;
 
-  var currentMaxIndex = 0,
-    cntLeaders = 1,
-    result = 0;
-  for (var i = 1; i < votes.length; i++) {
-    if (votes[i] === votes[currentMaxIndex]) {
-      cntLeaders++;
+    for (const item of votes) {
+        if (max < item) {
+            max = item;
+            maxCount = 1;
+        } else if (max === item) ++maxCount;
     }
-    if (votes[i] > votes[currentMaxIndex]) {
-      currentMaxIndex = i;
-      cntLeaders = 1;
-    }
-  }
 
-  for (var i = 0; i < votes.length; i++) {
-    if (votes[i] + k > votes[currentMaxIndex]) {
-      result++;
-    }
-    if (votes[i] + k === votes[currentMaxIndex]
-      && currentMaxIndex === i && cntLeaders === 1) {
-      result++;
-    }
-  }
+    if (!k && 1 < maxCount) return 0;
 
-  return result;
+    let result = 0;
+
+    for (const item of votes)
+        if ((0 < k && item + k > max) || (max === item))
+            ++result;
+
+    return result;
 }
