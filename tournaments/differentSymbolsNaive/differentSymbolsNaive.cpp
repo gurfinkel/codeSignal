@@ -7,6 +7,7 @@ int differentSymbolsNaive(std::string s) {
     for (int j = 0; j < s.size(); j++) {
       if (s[j] == 'a' + i) {
         found = true;
+        break;
       }
     }
     if (found) {

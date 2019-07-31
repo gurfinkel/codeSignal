@@ -19,7 +19,7 @@ int bfsDistancesUnweightedGraph2(matrix_t matrix,
         for (int nextVertex = 0; nextVertex < matrix.size(); ++nextVertex) {
             if (matrix[currentVertex][nextVertex] && !visited[nextVertex]) {
                 visited[nextVertex] = true;
-                distance[nextVertex] =  distance[currentVertex]+1 ;
+                distance[nextVertex] = distance[currentVertex] + 1;
                 q.push(nextVertex);
             }
         }
