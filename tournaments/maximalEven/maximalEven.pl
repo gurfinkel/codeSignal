@@ -3,9 +3,9 @@ use strict;
 use warnings FATAL => 'all';
 
 sub maximalEven {
-    use List::Util qw( min max );
-
     my ($inputArray) = @_;
+
+    use List::Util qw( min max );
 
     my $result = 0;
 

@@ -1,13 +1,12 @@
 function differentValuesInMultiplicationTable(n, m) {
-    var result = 0;
-    for (var value = 1; value <= n * m; value++) {
-        for (var i = 1; i <= Math.min(n, m); i++) {
-            if (Math.max(n, m) >= value / i && 0 === value % i) {
-                result++;
+    let result = 0;
+
+    for (let i = 1; n * m >= i; ++i)
+        for (let j = 1; Math.min(n, m) >= j; ++j)
+            if (Math.max(n, m) >= i / j && !(i % j)) {
+                ++result;
                 break;
             }
-        }
-    }
+
     return result;
 }
-    
