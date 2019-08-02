@@ -19,8 +19,7 @@ sub increaseNumberRoundness {
         } else {
             if ($c) {
                 return 1;
-            }
-            else {
+            } else {
                 $d = 1;
             }
         }
