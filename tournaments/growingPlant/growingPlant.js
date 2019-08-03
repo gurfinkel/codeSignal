@@ -11,5 +11,5 @@ function growingPlant(upSpeed, downSpeed, desiredHeight) {
         ++result;
     }
 
-    return result
+    return result;
 }
