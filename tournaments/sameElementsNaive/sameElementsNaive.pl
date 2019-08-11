@@ -14,6 +14,5 @@ sub sameElementsNaive {
         }
     }
 
-
     return $result;
 }

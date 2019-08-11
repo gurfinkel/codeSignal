@@ -5,7 +5,8 @@ function binaryGenerator(s) {
     const b = [];
 
     for (let i = 0; a.length > i; ++i)
-        if (!a[i]) b.push(i);
+        if (!a[i])
+            b.push(i);
 
     for (let i = 0; 1 << b.length > i; ++i) {
         for (let j = 0; b.length > j; ++j)

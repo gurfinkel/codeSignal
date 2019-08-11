@@ -10,7 +10,7 @@ sub divisorsPairs {
 
     for (my $i = 0; $len > $i; ++$i) {
         for (my $j = $i + 1; $len > $j; ++$j) {
-            if (!(@$sequence[$i] % @$sequence[$j]) || !(@$sequence[$j] % @$sequence[$i])) {
+            unless ((@$sequence[$i] % @$sequence[$j]) && (@$sequence[$j] % @$sequence[$i])) {
                 ++$result;
             }
         }

@@ -5,15 +5,14 @@ use warnings FATAL => 'all';
 sub allLongestStrings {
     my ($inputArray) = @_;
 
-    my $result = [];
+    my @result = ();
 
-    foreach my $item (@$inputArray) {
-        if (!scalar(@$result) || length(@$result[0]) == length($item)) {
-            push $result, $item;
-        } elsif (length(@$result[0]) < length($item)) {
-            $result = [$item];
+    foreach (@$inputArray) {
+        if (!scalar(@result) || length($result[0]) == length($_)) {
+            push @result, $_;
+        } elsif (length($result[0]) < length($_)) {
+            @result = ($_);
         }
     }
-
-    return $result;
+    return \@result;
 }
