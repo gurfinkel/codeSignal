@@ -7,7 +7,7 @@ function numberOfTriangles2(sticks) {
     for (let i = 0; n > i; ++i) {
         for (let j = i + 1; n > j; ++j) {
             for (let k = j + 1; n > k; ++k) {
-                if (sticks[i] < sticks[j] + sticks[k]){
+                if (sticks[i] < sticks[j] + sticks[k]) {
                     ++result;
                 }
             }
