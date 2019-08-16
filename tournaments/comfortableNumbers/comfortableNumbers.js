@@ -1,7 +1,7 @@
 function comfortableNumbers(l, r) {
     const getSumOfDigits = function(n) {
         let r = 0;
-        while (0 < n) {
+        while (n) {
             r += n % 10;
             n = ~~(n / 10);
         }

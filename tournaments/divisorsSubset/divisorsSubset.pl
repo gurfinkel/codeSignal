@@ -4,6 +4,7 @@ use warnings FATAL => 'all';
 
 sub divisorsSubset {
     my ($subset, $n) = @_;
+
     my $result = 0;
 
     for (my $i = 1; $n >= $i; ++$i) {

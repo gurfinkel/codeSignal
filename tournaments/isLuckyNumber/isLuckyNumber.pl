@@ -5,7 +5,7 @@ use warnings FATAL => 'all';
 sub isLuckyNumber {
     my ($n) = @_;
 
-    while (0 < $n) {
+    while ($n) {
         if (4 != $n % 10 && 7 != $n % 10) {
             return 0;
         }

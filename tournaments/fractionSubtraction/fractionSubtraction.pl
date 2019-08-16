@@ -18,7 +18,7 @@ sub fractionSubtraction {
 sub getGcd {
     my ($c, $d) = @_;
 
-    if (0 == $c) {
+    unless ($c) {
         return $d;
     }
 
