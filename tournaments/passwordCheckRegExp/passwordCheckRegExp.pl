@@ -5,24 +5,10 @@ use warnings FATAL => 'all';
 sub passwordCheckRegExp {
     my ($inputString) = @_;
 
-    if (5 > length($inputString)) {
-        return 0;
-    }
+    my $len = $inputString =~ tr/0-9a-zA-Z//;
+    my $digits = $inputString =~ tr/0-9//;
+    my $lowers = $inputString =~ tr/a-z//;
+    my $uppers = $inputString =~ tr/A-Z//;
 
-    my $d = 0;
-    my $l = 0;
-    my $u = 0;
-    my @store = split('', $inputString);
-
-    foreach (@store) {
-        if ('0' le $_ && '9' ge $_) {
-            ++$d;
-        } elsif ('a' le $_ && 'z' >= $_) {
-            ++$l;
-        } elsif ('A' le $_ && 'Z' ge $_) {
-            ++$u;
-        }
-    }
-
-    return $d && $l && $u ? 1 : 0;
+    return 4 < $len && 0 < $digits && 0 < $lowers && 0 < $uppers ? 1 : 0;
 }
