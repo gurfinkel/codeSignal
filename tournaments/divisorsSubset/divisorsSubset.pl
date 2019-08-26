@@ -8,13 +8,13 @@ sub divisorsSubset {
     my $result = 0;
 
     for (my $i = 1; $n >= $i; ++$i) {
-        my $c = 1;
+        my $x = 1;
         for (my $j = 0; @$subset > $j; ++$j) {
             if ($i % $$subset[$j]) {
-                $c = 0;
+                $x = 0;
             }
         }
-        if ($c) {
+        if ($x) {
             ++$result;
         }
     }
