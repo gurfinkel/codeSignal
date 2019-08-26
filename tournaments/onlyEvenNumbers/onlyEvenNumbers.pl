@@ -4,6 +4,7 @@ use warnings FATAL => 'all';
 
 sub onlyEvenNumbers {
     my ($left, $right) = @_;
+
     my @result;
 
     for (my $i = $left; $right >= $i; ++$i) {

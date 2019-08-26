@@ -6,16 +6,16 @@ sub pagesNumbering {
     my ($n) = @_;
 
     my $result = 0;
-    my $c = 1;
-    my $d = 1;
+    my $x = 1;
+    my $y = 1;
 
-    while ($n >= 10 * $c) {
-        $result += 9 * $c * $d;
-        $c *= 10;
-        ++$d;
+    while ($n >= 10 * $x) {
+        $result += 9 * $x * $y;
+        $x *= 10;
+        ++$y;
     }
 
-    $result += ($n - $c + 1) * $d;
+    $result += ($n - $x + 1) * $y;
 
     return $result;
 }
