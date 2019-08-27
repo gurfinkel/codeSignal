@@ -5,7 +5,7 @@ use warnings FATAL => 'all';
 sub maximalEven {
     my ($inputArray) = @_;
 
-    use List::Util qw( min max );
+    use List::Util qw(max);
 
     my $result = 0;
 

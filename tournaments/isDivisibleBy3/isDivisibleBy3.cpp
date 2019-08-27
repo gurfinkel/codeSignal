@@ -19,7 +19,7 @@ std::vector<std::string> isDivisibleBy3(std::string inputString) {
   for (int i = 0; i < 10; i++) {
     if ((digitSum + i) % 3 == 0) {
       inputString[asteriskPos] = char(leftBound + i);
-      answer.insert(answer.end(), inputString);
+      answer.push_back(inputString);
     }
   }
 

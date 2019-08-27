@@ -8,32 +8,32 @@ sub divNumber {
     my $result = 0;
 
     for (my $i = $l; $r >= $i; ++$i) {
-        my $a = $i;
-        my $b = 1;
-        my $c = 2;
+        my $x = $i;
+        my $y = 1;
+        my $z = 2;
 
-        while ($a >= $c*$c) {
-            my $d = 0;
+        while ($x >= $z * $z) {
+            my $c = 0;
 
-            while (!($a % $c)) {
-                $a /= $c;
-                ++$d;
+            while (!($x % $z)) {
+                $x /= $z;
+                ++$c;
             }
 
-            $b *= 1 + $d;
+            $y *= 1 + $c;
 
-            if ($k < $b) {
+            if ($k < $y) {
                 last;
             }
 
-            ++$c;
+            ++$z;
         }
 
-        if (1 < $a) {
-            $b <<= 1;
+        if (1 < $x) {
+            $y <<= 1;
         }
 
-        if ($k == $b) {
+        if ($k == $y) {
             ++$result;
         }
     }
