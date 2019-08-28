@@ -6,10 +6,10 @@ sub leastFactorial {
     my ($n) = @_;
 
     my $result = 1;
-    my $c = 1;
+    my $x = 1;
 
     while ($n > $result) {
-        $result *= $c++;
+        $result *= $x++;
     }
 
     return $result;

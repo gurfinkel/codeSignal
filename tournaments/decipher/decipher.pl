@@ -7,13 +7,13 @@ sub decipher {
 
     my @store = split('', $cipher);
     my $result = '';
-    my $c = '';
+    my $x = '';
 
     foreach (@store) {
-        $c .= $_;
-        if (97 <= int($c) && 122 >= int($c)) {
-            $result .= chr($c);
-            $c = '';
+        $x .= $_;
+        if (97 <= int($x) && 122 >= int($x)) {
+            $result .= chr($x);
+            $x = '';
         }
     }
 

@@ -6,14 +6,14 @@ sub isSumOfConsecutive {
     my ($n) = @_;
 
     for (my $i = 1; $n > $i; ++$i) {
-        my $c = $n;
-        my $d = $i;
+        my $x = $n;
+        my $y = $i;
 
-        while (0 < $c) {
-            $c -= $d++;
+        while (0 < $x) {
+            $x -= $y++;
         }
 
-        unless ($c) {
+        unless ($x) {
             return 1;
         }
     }

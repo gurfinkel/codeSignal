@@ -7,7 +7,7 @@ std::string integerToStringOfFixedWidth(int number, int width) {
   }
 
   int position = width - 1;
-  while (number > 0 && position >= 0) {
+  while (number && position >= 0) {
     result[position] = '0' + number % 10;
     number /= 10;
     position--;
