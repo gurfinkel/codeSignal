@@ -1,7 +1,9 @@
 function findSquareSide(x, y) {
-   let index = 1;
+   const store = Array(x.length - 1);
 
-   while (x.length > index && x[0] !== x[index++]) {}
+   for (let i = 1; x.length > i; ++i) {
+      store[i - 1] = ((y[i - 1] - y[i]) ** 2 + (x[i - 1] - x[i]) ** 2);
+   }
 
-   return Math.pow(Math.abs(y[0] - y[--index]), 2);
+   return Math.min(...store);
 }
