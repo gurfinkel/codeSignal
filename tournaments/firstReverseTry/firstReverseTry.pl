@@ -5,11 +5,9 @@ use warnings FATAL => 'all';
 sub firstReverseTry {
     my ($arr) = @_;
 
-    unless (@$arr) {
-        return $arr;
+    if (@$arr) {
+        @$arr[0, @$arr - 1] = @$arr[@$arr - 1, 0];
     }
-
-    @$arr[0, @$arr - 1] = @$arr[@$arr - 1, 0];
 
     return $arr;
 }
