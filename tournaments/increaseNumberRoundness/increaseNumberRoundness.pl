@@ -5,22 +5,22 @@ use warnings FATAL => 'all';
 sub increaseNumberRoundness {
     my ($n) = @_;
 
-    my $c = 0;
-    my $d = 0;
+    my $x = 0;
+    my $y = 0;
 
     while (0 < $n) {
-        my $e = $n % 10;
+        my $z = $n % 10;
         $n = int($n / 10);
 
-        if (!$e) {
-            if ($d) {
-                $c = 1;
+        if (!$z) {
+            if ($y) {
+                $x = 1;
             }
         } else {
-            if ($c) {
+            if ($x) {
                 return 1;
             } else {
-                $d = 1;
+                $y = 1;
             }
         }
     }

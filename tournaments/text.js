@@ -305,7 +305,7 @@ function sortHotelList(keywords, hotelIds, reviews) {
   const dict = new Map();
 
   for (let i = 0; reviews.length > i; ++i) {
-    const arrReviews = reviews[i].toLowerCase().split(' ');
+    const arrReviews = reviews[i].toLowerCase().match(/\b(\w+)\b/g);
     const count = arrReviews.reduce((total, item) => total + trie.search(item), 0);
 
     if (!dict.has(hotelIds[i])) {
@@ -472,3 +472,92 @@ function getHotelsWithMinimumAverageReviewScore(min_score) {
 // how I would decide if a feature under testing should be made permanent or not.
 // Retweet twitter tweets if newer one is an anagram of older  one.
 // Find how many moves it takes from point A in a maze to  point B.
+
+function criticalRouters(numRouters, numLinks, links)
+{
+  // WRITE YOUR CODE HERE
+  const dfs = function(vertex, timeValue = time) {
+    visited[vertex] = true;
+    disc[vertex] = low[vertex] = timeValue + 1;
+    let child = 0;
+    
+    for (let i = 0; numRouters > i; ++i) {
+      if (links[vertex] && links[vertex][i]) {
+        if (!visited[i]) {
+          ++child;
+          parent[i] = vertex;
+          dfs(i, timeValue + 1);
+          low[vertex] = Math.min(low[vertex], low[i]);
+          
+          if (!parent[vertex] && 1 < child) {
+            AP[vertex] = true;
+          }
+          
+          if (parent[vertex] && low[i] >= disc[vertex]) {
+            AP[vertex] = true;
+          }
+        } else if (parent[vertex] != i) {
+          low[vertex] = Math.min(low[vertex], disc[i])
+        }
+      }
+    }
+  };
+  
+  let time = 0;
+  const result = [];
+  const visited = Array(numRouters).fill(false);
+  const copy = Array(numRouters).fill(0);
+  const disc = Array(numRouters).fill(0);
+  const low = Array(numRouters).fill(0);
+  const parent = Array(numRouters).fill(0);
+  const AP = Array(numRouters).fill(0);
+  let initial_val = 0;
+  
+  for (let i = 0; numRouters > i; ++i) {
+    if (!visited[i]) {
+      dfs(i);
+      ++initial_val;
+    }
+  }
+  
+  for (let i = 0; numRouters > i; ++i) {
+    for (let j = 0; numRouters > j; ++j) {
+      visited[j] = false;
+      copy[j] = links[i] ? links[i][j] : 0;
+      if (links[i]) links[i][j] = 0;
+      if (links[j]) links[j][i] = 0;
+    }
+    
+    let nval = 0;
+    for (let j = 0; numRouters > j; ++j) {
+      if (!visited[j] && j != i) {
+        ++nval;
+        dfs(j);
+      }
+    }
+    
+    if (nval > initial_val) {
+      result.push(nval);
+    }
+    
+    for (let j = 0; numRouters > j; ++j) {
+      if (links[i]) links[i][j] = copy[j];
+      if (links[j]) links[j][i] = copy[j];
+    }
+  }
+  
+  return result;
+}
+
+function criticalRoutersTest() {
+  const numRouters1 = 6;
+  const numLinks1 = 5;
+  const links1 = [[1,2],[2,3],[3,4],[4,5],[6,3]];
+  
+  const numRouters2 = 10;
+  const numLinks2 = 13;
+  const links2 = [[1,2],[1,3],[2,3],[3,4],[4,5],[4,6],[5,6],[5,7],[6,7],[7,8],[8,9],[8,10],[9,10]];
+  
+  assert.deepEqual(criticalRouters(numRouters1, numLinks1, links1), [2, 3, 4], '1) Should be [2, 3, 4]');
+  assert.deepEqual(criticalRouters(numRouters2, numLinks2, links2), [3, 4, 7, 8], '2) Should be [3, 4, 7, 8]');
+}
