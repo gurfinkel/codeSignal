@@ -473,31 +473,31 @@ function getHotelsWithMinimumAverageReviewScore(min_score) {
 // Retweet twitter tweets if newer one is an anagram of older  one.
 // Find how many moves it takes from point A in a maze to  point B.
 
-function criticalRouters(numRouters, numLinks, links)
-{
+function criticalRouters(numRouters, numLinks, links) {
   // WRITE YOUR CODE HERE
-  const dfs = function(vertex, timeValue = time) {
+  const dfs = function(vertex) {
     visited[vertex] = true;
-    disc[vertex] = low[vertex] = timeValue + 1;
+    preOrderNumbering[vertex] = ++time;
+    low[vertex] = time;
     let child = 0;
     
     for (let i = 0; numRouters > i; ++i) {
-      if (links[vertex] && links[vertex][i]) {
+      if (matrix[vertex][i]) {
         if (!visited[i]) {
           ++child;
           parent[i] = vertex;
-          dfs(i, timeValue + 1);
+          dfs(i);
           low[vertex] = Math.min(low[vertex], low[i]);
           
-          if (!parent[vertex] && 1 < child) {
-            AP[vertex] = true;
+          if (null === parent[vertex] && 1 < child) {
+            result.push(vertex);
           }
           
-          if (parent[vertex] && low[i] >= disc[vertex]) {
-            AP[vertex] = true;
+          if (null !== parent[vertex] && low[i] >= preOrderNumbering[vertex]) {
+            result.push(vertex);
           }
-        } else if (parent[vertex] != i) {
-          low[vertex] = Math.min(low[vertex], disc[i])
+        } else if (parent[vertex] !== i) {
+          low[vertex] = Math.min(low[vertex], preOrderNumbering[i])
         }
       }
     }
@@ -505,46 +505,20 @@ function criticalRouters(numRouters, numLinks, links)
   
   let time = 0;
   const result = [];
+  const matrix = Array(numRouters).fill([]).map(_ => Array(numRouters).fill(false));
   const visited = Array(numRouters).fill(false);
-  const copy = Array(numRouters).fill(0);
-  const disc = Array(numRouters).fill(0);
-  const low = Array(numRouters).fill(0);
-  const parent = Array(numRouters).fill(0);
-  const AP = Array(numRouters).fill(0);
-  let initial_val = 0;
+  const preOrderNumbering = Array(numRouters).fill(0);
+  const low = Array(numRouters).fill(Number.MAX_SAFE_INTEGER);
+  const parent = Array(numRouters).fill(null);
   
-  for (let i = 0; numRouters > i; ++i) {
-    if (!visited[i]) {
-      dfs(i);
-      ++initial_val;
-    }
+  for (const link of links) {
+    matrix[link[0] - 1][link[1] - 1] = true;
+    matrix[link[1] - 1][link[0] - 1] = true;
   }
   
-  for (let i = 0; numRouters > i; ++i) {
-    for (let j = 0; numRouters > j; ++j) {
-      visited[j] = false;
-      copy[j] = links[i] ? links[i][j] : 0;
-      if (links[i]) links[i][j] = 0;
-      if (links[j]) links[j][i] = 0;
-    }
-    
-    let nval = 0;
-    for (let j = 0; numRouters > j; ++j) {
-      if (!visited[j] && j != i) {
-        ++nval;
-        dfs(j);
-      }
-    }
-    
-    if (nval > initial_val) {
-      result.push(nval);
-    }
-    
-    for (let j = 0; numRouters > j; ++j) {
-      if (links[i]) links[i][j] = copy[j];
-      if (links[j]) links[j][i] = copy[j];
-    }
-  }
+  dfs(0);
+  
+  console.log(result);
   
   return result;
 }
@@ -561,3 +535,5 @@ function criticalRoutersTest() {
   assert.deepEqual(criticalRouters(numRouters1, numLinks1, links1), [2, 3, 4], '1) Should be [2, 3, 4]');
   assert.deepEqual(criticalRouters(numRouters2, numLinks2, links2), [3, 4, 7, 8], '2) Should be [3, 4, 7, 8]');
 }
+
+criticalRoutersTest();
