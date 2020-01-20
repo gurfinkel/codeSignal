@@ -473,67 +473,68 @@ function getHotelsWithMinimumAverageReviewScore(min_score) {
 // Retweet twitter tweets if newer one is an anagram of older  one.
 // Find how many moves it takes from point A in a maze to  point B.
 
-function criticalRouters(numRouters, numLinks, links) {
-  // WRITE YOUR CODE HERE
+function findArticulationPoints(numVertices, numEdges, edges) {
   const dfs = function(vertex) {
     visited[vertex] = true;
-    preOrderNumbering[vertex] = ++time;
-    low[vertex] = time;
-    let child = 0;
+    disc[vertex] = low[vertex] = ++time;
+    let children = 0;
     
-    for (let i = 0; numRouters > i; ++i) {
+    for (let i = 0; numVertices > i; ++i) {
       if (matrix[vertex][i]) {
         if (!visited[i]) {
-          ++child;
+          ++children;
           parent[i] = vertex;
           dfs(i);
           low[vertex] = Math.min(low[vertex], low[i]);
           
-          if (null === parent[vertex] && 1 < child) {
-            result.push(vertex);
+          if (null === parent[vertex] && 1 < children) {
+            result.add(1 + vertex);
           }
           
-          if (null !== parent[vertex] && low[i] >= preOrderNumbering[vertex]) {
-            result.push(vertex);
+          if (null !== parent[vertex] && low[i] >= disc[vertex]) {
+            result.add(1 + vertex);
           }
         } else if (parent[vertex] !== i) {
-          low[vertex] = Math.min(low[vertex], preOrderNumbering[i])
+          low[vertex] = Math.min(low[vertex], disc[i]);
         }
       }
     }
   };
   
   let time = 0;
-  const result = [];
-  const matrix = Array(numRouters).fill([]).map(_ => Array(numRouters).fill(false));
-  const visited = Array(numRouters).fill(false);
-  const preOrderNumbering = Array(numRouters).fill(0);
-  const low = Array(numRouters).fill(Number.MAX_SAFE_INTEGER);
-  const parent = Array(numRouters).fill(null);
+  const result = new Set();
+  const matrix = Array(numVertices).fill([]).map(_ => Array(numVertices).fill(false));
+  const visited = Array(numVertices).fill(false);
+  const disc = Array(numVertices).fill(0);
+  const low = Array(numVertices).fill(Number.MAX_SAFE_INTEGER);
+  const parent = Array(numVertices).fill(null);
   
-  for (const link of links) {
-    matrix[link[0] - 1][link[1] - 1] = true;
-    matrix[link[1] - 1][link[0] - 1] = true;
+  for (const edge of edges) {
+    matrix[edge[0] - 1][edge[1] - 1] = true;
+    matrix[edge[1] - 1][edge[0] - 1] = true;
   }
-  
+
   dfs(0);
-  
-  console.log(result);
-  
-  return result;
+
+  return [...result].sort((a, b) => a - b);
 }
 
-function criticalRoutersTest() {
-  const numRouters1 = 6;
-  const numLinks1 = 5;
-  const links1 = [[1,2],[2,3],[3,4],[4,5],[6,3]];
+function findArticulationPointsTest() {
+  const numVertices1 = 6;
+  const numEdges1 = 5;
+  const edges1 = [[1,2],[2,3],[3,4],[4,5],[6,3]];
   
-  const numRouters2 = 10;
-  const numLinks2 = 13;
-  const links2 = [[1,2],[1,3],[2,3],[3,4],[4,5],[4,6],[5,6],[5,7],[6,7],[7,8],[8,9],[8,10],[9,10]];
+  const numVertices2 = 10;
+  const numEdges2 = 13;
+  const edges2 = [[1,2],[1,3],[2,3],[3,4],[4,5],[4,6],[5,6],[5,7],[6,7],[7,8],[8,9],[8,10],[9,10]];
+
+  const numVertices3 = 6;
+  const numEdges3 = 7;
+  const edges3 = [[1,2],[1,6],[2,3],[2,4],[3,4],[3,5],[4,5]];
   
-  assert.deepEqual(criticalRouters(numRouters1, numLinks1, links1), [2, 3, 4], '1) Should be [2, 3, 4]');
-  assert.deepEqual(criticalRouters(numRouters2, numLinks2, links2), [3, 4, 7, 8], '2) Should be [3, 4, 7, 8]');
+  assert.deepEqual(findArticulationPoints(numVertices1, numEdges1, edges1), [2, 3, 4], '1) Should be [2, 3, 4]');
+  assert.deepEqual(findArticulationPoints(numVertices2, numEdges2, edges2), [3, 4, 7, 8], '2) Should be [3, 4, 7, 8]');
+  assert.deepEqual(findArticulationPoints(numVertices3, numEdges3, edges3), [1, 2], '3) Should be [1, 2]');
 }
 
-criticalRoutersTest();
+findArticulationPointsTest();
