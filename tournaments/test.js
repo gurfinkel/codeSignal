@@ -538,3 +538,53 @@ function findArticulationPointsTest() {
 }
 
 findArticulationPointsTest();
+
+function findBridges(numVertices, numEdges, edges) {
+  const dfs = function(vertex) {
+    visited[vertex] = true;
+    disc[vertex] = low[vertex] = ++time;
+
+    for (let i = 0; numVertices > i; ++i) {
+      if (matrix[vertex][i]) {
+        if (!visited[i]) {
+          parent[i] = vertex;
+          dfs(i);
+          low[vertex] = Math.min(low[vertex], low[i]);
+
+          if (low[i] > disc[vertex]) {
+            result.add(`${1 + vertex} - ${1 + i}`);
+          }
+        } else if (parent[vertex] !== i) {
+          low[vertex] = Math.min(low[vertex], disc[i]);
+        }
+      }
+    }
+  };
+
+  let time = 0;
+  const result = new Set();
+  const matrix = Array(numVertices).fill([]).map(_ => Array(numVertices).fill(false));
+  const visited = Array(numVertices).fill(false);
+  const disc = Array(numVertices).fill(0);
+  const low = Array(numVertices).fill(Number.MAX_SAFE_INTEGER);
+  const parent = Array(numVertices).fill(null);
+
+  for (const edge of edges) {
+    matrix[edge[0] - 1][edge[1] - 1] = true;
+    matrix[edge[1] - 1][edge[0] - 1] = true;
+  }
+
+  dfs(0);
+
+  return [...result];
+}
+
+function findBridgesTest() {
+  const numVertices3 = 6;
+  const numEdges3 = 7;
+  const edges3 = [[1,2],[1,6],[2,3],[2,4],[3,4],[3,5],[4,5]];
+
+  assert.deepEqual(findBridges(numVertices3, numEdges3, edges3), ['1 - 2', '1 - 6'], '1) Should be [1 - 2, 1 - 6]');
+}
+
+findBridgesTest();
