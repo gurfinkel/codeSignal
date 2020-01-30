@@ -1,23 +1,23 @@
 function videoPart(part, total) {
+    const getSeconds = function(time) {
+        const h = +time.slice(0, 2);
+        const m = +time.slice(3, 5);
+        const s = +time.slice(6, 8);
 
-    var getSeconds = function(time) {
-        var h = parseInt(time.substring(0, 2)),
-            m = parseInt(time.substring(3, 5)),
-            s = parseInt(time.substring(6, 8));
-        return h * 60 * 60 + m * 60 + s;
-    }
+        return 60 * 60 * h + 60 * m + s;
+    };
 
-    var gcd = function(a, b) {
-        while (a > 0) {
-            var tmp = a;
-            a = b % a;
-            b = tmp;
+    const getGcd = function(a, b) {
+        if (!a) {
+            return b;
         }
-        return b;
-    }
 
-    var partTime = getSeconds(part);
-    var totalTime = getSeconds(total);
-    var divisor = gcd(partTime, totalTime);
-    return [partTime / divisor, totalTime / divisor];
+        return getGcd(b % a, a);
+    };
+
+    const partSeconds = getSeconds(part);
+    const totalSeconds = getSeconds(total);
+    const gcd = getGcd(partSeconds, totalSeconds);
+
+    return [partSeconds / gcd, totalSeconds / gcd];
 }
