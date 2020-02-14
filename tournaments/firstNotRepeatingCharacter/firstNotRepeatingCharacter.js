@@ -1,24 +1,18 @@
 function firstNotRepeatingCharacter(s) {
+    const result = ['_'];
     const n = s.length;
-    const store = new Map();
-    const previousVariants = [];
-    let result = '_';
+    const store = {};
 
     for (let i = n - 1; 0 <= i; --i) {
-        if (store.has(s[i])) {
-            store.set(s[i], 1 + store.get(s[i]));
-
-            if (result === s[i]) {
-                while (previousVariants.length && 1 !== store.get(result)) {
-                    result = previousVariants.shift();
-                }
+        if (s[i] in store) {
+            ++store[s[i]];
+            while (1 < store[result[result.length - 1]]) {
+                result.pop();
             }
         } else {
-            previousVariants.unshift(result);
-            result = s[i];
-            store.set(s[i], 1);
+            result.push(s[i]);
+            store[s[i]] = 1;
         }
     }
-
-    return result;
+    return result.pop();
 }

@@ -1,10 +1,9 @@
 function avoidObstacles(inputArray) {
-    const n = inputArray.length;
+    let result = 0;
 
-    for (let i = 1; ; ++i) {
-        for (let j = 0; n > j; ++j) {
-            if (!(inputArray[j] % i)) break;
-            if (n - 1 === j) return i;
+    while (++result) {
+        if (inputArray.every(item => item % result)) {
+            return result;
         }
     }
 }
