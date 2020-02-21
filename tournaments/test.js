@@ -478,7 +478,7 @@ function findArticulationPoints(numVertices, numEdges, edges) {
     visited[vertex] = true;
     disc[vertex] = low[vertex] = ++time;
     let children = 0;
-    
+
     for (let i = 0; numVertices > i; ++i) {
       if (matrix[vertex][i]) {
         if (!visited[i]) {
@@ -486,11 +486,11 @@ function findArticulationPoints(numVertices, numEdges, edges) {
           parent[i] = vertex;
           dfs(i);
           low[vertex] = Math.min(low[vertex], low[i]);
-          
+
           if (null === parent[vertex] && 1 < children) {
             result.add(1 + vertex);
           }
-          
+
           if (null !== parent[vertex] && low[i] >= disc[vertex]) {
             result.add(1 + vertex);
           }
@@ -500,7 +500,7 @@ function findArticulationPoints(numVertices, numEdges, edges) {
       }
     }
   };
-  
+
   let time = 0;
   const result = new Set();
   const matrix = Array(numVertices).fill([]).map(_ => Array(numVertices).fill(false));
@@ -508,7 +508,7 @@ function findArticulationPoints(numVertices, numEdges, edges) {
   const disc = Array(numVertices).fill(0);
   const low = Array(numVertices).fill(Number.MAX_SAFE_INTEGER);
   const parent = Array(numVertices).fill(null);
-  
+
   for (const edge of edges) {
     matrix[edge[0] - 1][edge[1] - 1] = true;
     matrix[edge[1] - 1][edge[0] - 1] = true;
@@ -523,7 +523,7 @@ function findArticulationPointsTest() {
   const numVertices1 = 6;
   const numEdges1 = 5;
   const edges1 = [[1,2],[2,3],[3,4],[4,5],[6,3]];
-  
+
   const numVertices2 = 10;
   const numEdges2 = 13;
   const edges2 = [[1,2],[1,3],[2,3],[3,4],[4,5],[4,6],[5,6],[5,7],[6,7],[7,8],[8,9],[8,10],[9,10]];
@@ -531,7 +531,7 @@ function findArticulationPointsTest() {
   const numVertices3 = 6;
   const numEdges3 = 7;
   const edges3 = [[1,2],[1,6],[2,3],[2,4],[3,4],[3,5],[4,5]];
-  
+
   assert.deepEqual(findArticulationPoints(numVertices1, numEdges1, edges1), [2, 3, 4], '1) Should be [2, 3, 4]');
   assert.deepEqual(findArticulationPoints(numVertices2, numEdges2, edges2), [3, 4, 7, 8], '2) Should be [3, 4, 7, 8]');
   assert.deepEqual(findArticulationPoints(numVertices3, numEdges3, edges3), [1, 2], '3) Should be [1, 2]');

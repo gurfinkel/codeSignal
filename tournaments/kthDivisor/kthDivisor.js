@@ -1,8 +1,10 @@
 function kthDivisor(n, k) {
-    let result = 1;
-    while (0 < k && result <= n) {
-        if (!(n % result)) --k;
-        if (k) ++result;
+    let divisor = 1;
+
+    while (k && n >= divisor) {
+        if (!(n % divisor)) --k;
+        if (k) ++divisor;
     }
-    return !k ? result : -1;
+
+    return k ? -1 : divisor;
 }
