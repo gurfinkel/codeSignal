@@ -1,24 +1,18 @@
-function visiblePoints(p) {
-    angles = []
-    p.map(p => {
-        x = p[0]
-        y = p[1]
-        angle = Math.asin(x / Math.sqrt(x*x + y*y)) * 180 / Math.PI
-        angle = (y > 0 ? angle : 180 - angle) * 1e5 + .5 |0
-        angles.push(angle)
-        angles.push(360 * 1e5 + angle)
-    })
-    angles.sort((a,b) => a-b)
+// Compute each point's radian (adjust for negative radians)
+// Sort them
+// Repeat lowest 1/8 of circle at end (PI/4 radians)
+// find sliding window count of max points
 
-    max = 0
-    i = j = 0
-    while (j < angles.length) {
-        if (angles[j] - angles[i] <= 45 * 1e5) {
-            j++
-        } else {
-            if (max < j - i) max = j - i
-            i++
-        }
+function visiblePoints(points) {
+    var window = Math.PI/4;
+    var R = 2*Math.PI;
+    var P = points.map(p => (R+Math.atan2(p[1], p[0]))%R).sort((a,b) => a-b);
+    P = [...P, ...P.filter(r => r <= window).map(p => p + R)];
+    var i, j = 0;
+    var m = 0;
+    for (i = 0; i < points.length; i++) {
+        for (; j < P.length && P[j] <= P[i]+window; j++);
+        m = Math.max(m, j-i);
     }
-    return max < j - i ? j - i : max
+    return m;
 }
