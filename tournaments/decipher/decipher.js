@@ -1,14 +1,17 @@
 function decipher(cipher) {
-    let result = '';
-    let a = '';
+    const aCode = 'a'.charCodeAt(0);
+    const zCode = 'z'.charCodeAt(0);
+    const result = [];
+    const store = [];
 
     for (const letter of cipher) {
-        a += letter;
-        if (97 <= parseInt(a) && 122 >= parseInt(a)) {
-            result += String.fromCharCode(a);
-            a = '';
+        store.push(letter);
+        const curr = +store.join('');
+
+        if (aCode <= curr && zCode >= curr) {
+            result.push(String.fromCharCode(curr));
+            store.splice(0, store.length);
         }
     }
-
-    return result;
+    return result.join('');
 }
