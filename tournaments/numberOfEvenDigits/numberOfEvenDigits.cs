@@ -1,13 +1,10 @@
 int numberOfEvenDigits(int n) {
-    var result = 0;
-    
+    var r = 0;
+
     while (0 < n) {
-        var next = n % 10;
-        if (0 == (next & 1)) {
-            ++result;
-        }
+        if (0 == (n & 1)) ++r;
         n /= 10;
     }
-    
-    return result;
+
+    return r;
 }
