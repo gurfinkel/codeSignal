@@ -16,7 +16,5 @@ function exerciseElaboration(p, n) {
         test = 100 * p + p;
     }
     
-    test *= test;
-    
-    return getSum(test);
+    return getSum(test * test);
 }

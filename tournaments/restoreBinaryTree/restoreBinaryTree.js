@@ -10,7 +10,6 @@ function restoreBinaryTree(inorder, preorder) {
         return null;
     }
     
-    const len = preorder.length;
     let index = -1;
     
     const makeTree = function(i, p) {
