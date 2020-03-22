@@ -10,5 +10,5 @@ function digitalSumSort(a) {
         return r;
     };
 
-    return a.sort((a, b) => {if (getSum(a) === getSum(b)) return a - b; else return getSum(a) - getSum(b)});
+    return a.sort((a, b) => (getSum(a) === getSum(b)) ? a - b : getSum(a) - getSum(b));
 }
