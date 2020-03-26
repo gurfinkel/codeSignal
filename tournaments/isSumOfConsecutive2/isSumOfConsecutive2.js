@@ -6,7 +6,7 @@ function isSumOfConsecutive2(n) {
         let b = i;
 
         while (n > a) a += b++;
-        if (n === a) ++result;
+        result += n === a;
     }
 
     return result;
