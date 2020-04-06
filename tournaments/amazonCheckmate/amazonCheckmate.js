@@ -1,81 +1,63 @@
 function amazonCheckmate(king, amazon) {
-    const safeSquares = function(x, y, dx, dy, dx1, dy1) {
-        if (x+y === dx+dy && ((dx1+dy1 !== dx+dy) || (dx1+dy1 === dx+dy && !direction(x,y,dx,dy,dx1,dy1))))
-            return false;
+    // create 8x8 board
+    M = Math.abs
+    board = Array(8).fill(0);
+    board = board.map(a => [...board]);
 
-        if (x-y === dx-dy && ((dx1-dy1 !== dx-dy) || (dx1-dy1 === dx-dy && !direction(x,y,dx,dy,dx1,dy1))))
-            return false;
+    // get king and amazon coordinates
+    [kx, ky, ax, ay] = Buffer(king + amazon).map(a => a % 16 - 1);
 
-        if (x === dx && (dx1 !== dx || (dx1 === dx && !direction(x,y,dx,dy,dx1,dy1))))
-            return false;
-
-        if (y === dy && (dy1 !== dy || (dy1 === dy && !direction(x,y,dx,dy,dx1,dy1))))
-            return false;
-
-        for (const [x1,y1] of [[-1,-2],[-1,2],[1,-2],[1,2],[-2,-1],[-2,1],[2,-1],[2,1]] )
-            if (x === x1 + dx && y === y1 + dy)
-                return false;
-
-        return true;
-    };
-
-    const direction = function(x, y, dx, dy, dx1, dy1) {
-        return !Math.round(distance(dx,dy,dx1,dy1) - distance(dx,dy,x,y) + distance(dx1,dy1,x,y));
-    };
-    const distance = function(x, y, x1, y1) {
-        return ((x-x1)**2 + (y-y1)**2)**.5;
-    };
-
-    let mark = Array.from({length : 8}, _ => Array(8).fill(true));
-    let hash = { a : 0 , b : 1 , c: 2 , d: 3 , e : 4 , f : 5 , g : 6, h : 7 };
-    let results = [0,0,0,0];
-    for (const [dx , dy] of [[-1,-1],[-1,0],[-1,1],[1,-1],[1,0],[1,1],[0,-1],[0,0],[0,1]] ) {
-        const y = hash[king[0]] + dy;
-        const x = 8 - +king[1] + dx;
-        if (0 <= x && 8 > x && 0 <= y && 8 > y)
-            mark[x][y] = false;
-    }
-
-    const [amazonX, amazonY] = [8 - +amazon[1], hash[amazon[0]]];
-    mark[amazonX][amazonY] = !mark[amazonX][amazonY] ? false : "O";
-
-    for (let i = 0 ; i < 8 ; i++) {
-        for (let j = 0 ; j < 8 ; j++) {
-            if (!mark[i][j] || (i === amazonX && j === amazonY))
-                continue;
-            if (safeSquares(i, j, amazonX, amazonY, 8 - +king[1], hash[king[0]]))
-                mark[i][j] = "O";
-            else
-                mark[i][j] = "+";
-        }
-    }
-
-    for (let i = 0; 8 > i; i++) {
-        for (let j = 0 ; 8 > j; ++j) {
-            if (!mark[i][j] || (i === amazonX && j === amazonY))
-                continue;
-
-            let pos = [];
-            for (const [dx,dy] of [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]) {
-                let x = dx + i;
-                let y = dy + j;
-                if (x >= 0 && x < 8 && y >= 0 && y < 8)
-                    pos.push(mark[x][y]);
+    // set attacked positions at board[y][x]
+    for (y = 0; y < 8; y++) {
+        for (x = 0; x < 8; x++) {
+            dky = ky - y;
+            dkx = kx - x;
+            day = ay - y;
+            dax = ax - x;
+            // set amazon moves
+            if (day | dax) {
+                // like a king
+                if (M(day) < 2 && M(dax) < 2) board[y][x] = 1;
+                // like a knight
+                if (M(day) * M(dax) == 2) board[y][x] = 1;
+                // diagonal moves
+                if (M(day) == M(dax))
+                    if (M(dky) != M(dkx) || day * dky <= 0 || dax * dkx <= 0 || M(day) <= M(dky))
+                        board[y][x] = 2;
+                // vertical moves
+                if (ay == y)
+                    if (ky != y || dax * dkx <= 0 || M(dax) <= M(dkx))
+                        board[y][x] = 2;
+                // horizontal moves
+                if (ax == x)
+                    if (kx != x || day * dky <= 0 || M(day) <= M(dky))
+                        board[y][x] = 2;
             }
-
-            if (pos.every(e => e === "+" || !e || e === "X"))
-                mark[i][j] = mark[i][j] === "O" ? "S" : "X";
+            // set king moves and set unusable places
+            if (dky | dkx) {
+                if (M(dky) < 2 && M(dkx) < 2) board[y][x] = 3;
+            }
         }
     }
 
-    mark.map((e,i) =>
-        e.map((f, j) =>
-            i === amazonX && j === amazonY ? 0 :
-                f === "X" ? results[0]++ :
-                    f === "+" ? results[1]++ :
-                        f === "S" ? results[2]++ :
-                            f === "O" ? results[3]++ : 0)
-    );
-
-    return results;
+    ret = [0,0,0,0];
+    for (y = 0; y < 8; y++) {
+        for (x = 0; x < 8; x++) {
+            if (y == ay && x == ax || y == ky && x == kx || board[y][x] == 3)
+                continue;
+            neighbors = 8;
+            for (i = 0; i < 9; i++) {
+                y2 = y + (i / 3 | 0) - 1;
+                x2 = x + i % 3 - 1;
+                if (x != x2 || y != y2)
+                    neighbors -= y2 in board && x2 in board ? board[y2][x2] > 0 : 1;
+            }
+            ret[2 * !board[y][x] + !!neighbors]++;
+        }
+    }
+    // test:
+    //board[ay][ax] = 7;
+    //board[ky][kx] = 8;
+    //return board.reverse();
+    return ret;
 }
