@@ -1,60 +1,30 @@
-function textJustification(words, maxWidth) {
-    const res = [];
-    const sb = new Array(maxWidth);
-    
-    let left = 0;
-    let right = 0;
-    let sumLength = 0;
-    
-    while (left !== words.length) {
-        if (right < words.length && sumLength < maxWidth) {
-            sumLength += words[right++].length;
-            continue;
-        }
-        
-        let wordsCount = right - left;
-        let minSpacesCount = wordsCount - 1;
-        
-        while (sumLength + minSpacesCount > maxWidth) {
-            sumLength -= words[--right].length;
-            wordsCount = right - left;
-            minSpacesCount = wordsCount - 1;
-        }
-        
-        var remainingSpaces = maxWidth - (sumLength + minSpacesCount);
-        sb.splice(0, sb.length);
-        
-        if (right === words.length || wordsCount === 1) {
-            for (let i = left; i < right; i++) {
-                sb.push(words[i]);
-                if (i !== right - 1) {
-                    sb.push(' ');
-                }
+function textJustification(words, L) {
+    // split the whole text into max. L length lines, break at the spaces
+    var ret = [];
+    (words.join` ` + " ").replace(RegExp(`(.{0,${L}}) `, "g"), (a, l) => {
+        var j;
+        if (l.match(/ /)) {
+            // multiply words in the line add spaces to the beginning of the
+            // words while line length < L
+            j = 1
+            while (l.length < L) {
+                if (l[j] != " " && l[j - 1] == " ")
+                    l = l.substr(0, j) + " " + l.slice(j++)
+                l[++j] || (j = 1)
             }
-            sb.push(' '.repeat(remainingSpaces));
         } else {
-            let allSpaces = minSpacesCount + remainingSpaces;
-            let mod = allSpaces % minSpacesCount;
-            let commonSpaceCount = allSpaces / minSpacesCount;
-            
-            for (let i = left; i < right; i++) {
-                sb.push(words[i]);
-                if (i !== right - 1) {
-                    sb.push(' '.repeat(commonSpaceCount));
-                    if (mod) {
-                        sb.push(' ');
-                        --mod;
-                    }
-                }
-            }
+            // one word in the line. fill with spaces
+            l += " ".repeat(L - l.length)
         }
-        
-        let newStr = sb.join('');
-        res.push(newStr);
-        
-        left = right;
-        sumLength = 0;
-    }
-    
-    return res;
+        // store justified line
+        ret.push(l)
+    })
+
+    // last line switch back to left justify.
+    l = ret.length - 1
+    ret[l] = ret[l].replace(/ +/g, " ");
+    ret[l] += " ".repeat(L - ret[l].length);
+
+    // return justified text
+    return ret
 }
