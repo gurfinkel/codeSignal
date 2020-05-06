@@ -1,4 +1,4 @@
-int minSubsetSumDiff(int[] a) {
+maxSumSegmentsint minSubsetSumDiff(int[] a) {
     return findMin(a);
 }
 
