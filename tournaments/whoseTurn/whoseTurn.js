@@ -1,7 +1,7 @@
 function whoseTurn(p) {
-    const store = p.split(';').map(item => {
-        return !((item.charCodeAt(0) - 'A'.charCodeAt(0) + +(item[1])) % 2);
-    });
-    
-    return (store[0] ^ store[1]) === (store[2] ^ store[3])
+    const [k1, k2, k3, k4] = [...p.split(';').map(item => {
+        return (item.charCodeAt(0) + +(item[1])) & 1;
+    })];
+
+    return (k1 ^ k2) === (k3 ^ k4);
 }

@@ -1,15 +1,17 @@
 string decipher(string cipher) {
-    string m = "";
-	string s = "";
-    
-	foreach (char ch in cipher) {
-		s += ch;
-		if (97 <= int.Parse(s) && int.Parse(s) <= 122)
-		{
-			m += (char)int.Parse(s);
-			s = "";
+    StringBuilder sb = new StringBuilder();
+	string str = "";
+
+	foreach (char item in cipher) {
+		str += item;
+
+        var num = int.Parse(str);
+
+		if (97 <= num && 122 >= num) {
+			sb.Append((char)num);
+			str = "";
 		}
 	}
-    
-	return m;
+
+	return sb.ToString();
 }
