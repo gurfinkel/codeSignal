@@ -1,12 +1,13 @@
 string addDigits(int a, int b, int n) {
     var number = a % b;
-    var result = new StringBuilder();
-    result.Append(a);
-    
+    var sb = new StringBuilder();
+
+    sb.Append(a);
+
     for (int i = 0; n > i; ++i) {
         var nextDigit = -1;
         for (var digit = 9; 0 <= digit; --digit) {
-            if (0 == (number * 10 + digit) % b) {
+            if (0 == (10 * number + digit) % b) {
                 nextDigit = digit;
                 break;
             }
@@ -14,9 +15,9 @@ string addDigits(int a, int b, int n) {
         if (-1 == nextDigit) {
             break;
         }
-        result.Append(nextDigit);
-        number = (number * 10 + nextDigit) % b;
+        sb.Append(nextDigit);
+        number = (10 * number + nextDigit) % b;
     }
-    
-    return result.ToString();
+
+    return sb.ToString();
 }
