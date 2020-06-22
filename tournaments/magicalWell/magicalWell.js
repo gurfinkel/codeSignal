@@ -1,7 +1,9 @@
 function magicalWell(a, b, n) {
-    let r = 0;
+    let result = 0;
+
     while (n--) {
-        r += a++ * b++;
+        result += a++ * b++;
     }
-    return r;
+
+    return result;
 }

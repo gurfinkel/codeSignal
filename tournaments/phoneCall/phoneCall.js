@@ -1,14 +1,31 @@
 function phoneCall(min1, min2_10, min11, s) {
+    let result = 0;
+    let firstPart = 1;
+    let secondPart = 9;
 
-    if (s < min1) {
-        return 0;
-    }
+    while (0 < s) {
+        if (0 < firstPart) {
+            if (s >= min1) {
+                ++result;
+                --firstPart;
+            }
 
-    for (var i = 2; i <= 10; i++) {
-        if (s < min1 + min2_10 * (i - 1)) {
-            return i - 1;
+            s -= min1;
+        } else if (0 < secondPart) {
+            if (s >= min2_10) {
+                ++result;
+                --secondPart;
+            }
+
+            s -= min2_10;
+        } else {
+            if (s >= min11) {
+                ++result;
+            }
+
+            s -= min11;
         }
     }
 
-    return Math.floor((s - min1 - min2_10 * 9) / min11) + 10;
+    return result;
 }
