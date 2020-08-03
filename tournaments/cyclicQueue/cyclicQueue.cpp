@@ -15,7 +15,7 @@ std::vector<int> cyclicQueue(std::vector<std::string> commands) {
     else {
       int value = 0;
       for (int j = 1; j < commands[i].size(); j++) {
-        value = value * 10 + commands[i][j] - '0';
+        value = value * 10 + int(commands[i][j]) - int('0');
       }
       sum += value;
       myQueue[tail] = value;
