@@ -1,15 +1,20 @@
 function goodStringsCount(len) {
-    function factorial(n) {
-        if ( n < 2 )
+    const factorial = function(n) {
+        if (2 > n) {
             return 1;
-
-        for ( var i = n-1; i > 1; i-- )
+        }
+        
+        for (let i = n - 1; 1 < i; --i) {
             n *= i;
-
+        }
+        
         return n;
-    }
-
-    var f0 = 2 ** len - len - 1, f1 = factorial(26), f2 = factorial(len), f3 = factorial(26-len);
-
+    };
+    
+    const f0 = 2 ** len - len - 1 ;
+    const f1 = factorial(26);
+    const f2 = factorial(len);
+    const f3 = factorial(26 - len);
+    
     return (f0 * f1) / (f2 * f3) | 0;
 }
