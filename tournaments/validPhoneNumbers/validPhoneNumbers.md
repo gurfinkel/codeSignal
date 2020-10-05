@@ -15,22 +15,16 @@ Example
 
 For the following table  **phone_numbers**
 
-name | surname | phone_number
-
-Cornelius | Walsh | 1-234-567-8910
-
-Frank | McKenzie | 1-2345-678-911
-
-John | Smith | (1)111-111-1111
-
-Lester | Goodwin | (1)-111-111-1111
+name | surname | phone_number  
+Cornelius | Walsh | 1-234-567-8910  
+Frank | McKenzie | 1-2345-678-911  
+John | Smith | (1)111-111-1111  
+Lester | Goodwin | (1)-111-111-1111  
 
 the output should be
 
-name | surname | phone_number
-
-John | Smith | (1)111-111-1111
-
-Cornelius | Walsh | 1-234-567-8910
+name | surname | phone_number  
+John | Smith | (1)111-111-1111  
+Cornelius | Walsh | 1-234-567-8910  
 
 -   **[execution time limit] 10 seconds (mysql)**
