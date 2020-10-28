@@ -5,7 +5,7 @@ function happyNumber(n) {
             result += (a%10) * (a%10);
             a = ~~(a/10);
         }
-        console.log(result);
+        
         return result;
     }
 

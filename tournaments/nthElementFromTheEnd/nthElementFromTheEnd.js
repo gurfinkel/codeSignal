@@ -4,13 +4,13 @@
 //   this.next = null;
 // }
 //
-function nthElementFromTheEnd(r, n) {
-    let l = r;
-
-    while (r) {
-        n ? n-- : l = l.next;
-        r = r.next;
+function nthElementFromTheEnd(l, n) {
+    let r = l;
+    
+    while (l) {
+        n ? n-- : r = r.next;
+        l = l.next;
     }
-
-    return n ? -1 : l.value;
+    
+    return n ? -1 : r.value;
 }
