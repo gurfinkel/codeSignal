@@ -3,7 +3,7 @@ function smallestMultiple(left, right) {
 
     do {
         if (res % right) {
-            res *= right
+            res *= right;
         }
     } while (left < right--);
 
