@@ -1,14 +1,20 @@
 function removeDuplicateCharacters(str) {
     const result = [];
     let store = new Map();
-
-    for (const item of str)
-        if (store.has(item)) store.set(item, 1 + store.get(item));
-        else store.set(item, 1);
-
-    for (const item of str)
-        if (1 === store.get(item))
-            result.push(item);
-
+    
+    for (const letter of str) {
+        if (store.has(letter)) {
+            store.set(letter, 1 + store.get(letter));
+        } else {
+            store.set(letter, 1);
+        }
+    }
+    
+    for (const letter of str) {
+        if (1 === store.get(letter)) {
+            result.push(letter);
+        }
+    }
+    
     return result.join('');
 }
