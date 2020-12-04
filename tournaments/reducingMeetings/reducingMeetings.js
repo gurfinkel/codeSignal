@@ -1,3 +1,13 @@
+// maximum spanning tree using disjoint set union
+/*
+E = 0
+F = i => X[i] - i ? F(X[i]) : i
+
+X = reducingMeetings = (n, M) => M.sort((a, b) => b[2] - a[2]).map(([a, b, c]) =>
+    F(a) - F(b) ? X[F(a, E += c)] = b : 0
+) | E
+*/
+
 function reducingMeetings(n, meetings) {
     const employees = meetings.reduce((acc, cur) => {
         acc[cur[0]] = acc[cur[0]] || []
