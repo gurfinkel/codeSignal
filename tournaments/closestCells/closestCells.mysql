@@ -1,0 +1,15 @@
+CREATE PROCEDURE closestCells()
+BEGIN
+	SELECT t1.id1, t1.id2
+FROM (	SELECT NULL, p1.id as id1, p2.id as id2, SQRT( POWER(p1.x - p2.x,2) + POWER(p1.y - p2.y,2))  as distance
+    FROM positions p1
+    CROSS JOIN positions p2
+    on p1.id != p2.id) t1
+LEFT JOIN (	SELECT NULL, p1.id as id1, p2.id as id2, SQRT( POWER(p1.x - p2.x,2) + POWER(p1.y - p2.y,2))  as distance
+    FROM positions p1
+    CROSS JOIN positions p2
+    on p1.id != p2.id) t2
+on t1.id1=t2.id1 and t1.distance > t2.distance
+where t2.id1 is NULL
+order by t1.id1;
+END
