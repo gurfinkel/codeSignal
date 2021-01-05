@@ -9,15 +9,17 @@ function hangman(word, letters) {
     }
 
     for (const item of letters) {
-        if (6 <= a)
+        if (6 <= a) {
             return false;
+        }
 
         const b = store[item.charCodeAt() - aCode];
 
-        if (!b)
+        if (!b) {
             ++a;
-        else
+        } else {
             result += b;
+        }
     }
 
     return word.length === result;
