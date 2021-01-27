@@ -1,16 +1,36 @@
-f = knightOnBoardProbability = (m, n, s, x, y) =>
-    x < 0 | x >= m | y < 0 | y >= n ?
-        0
-        :
-        s ?
-            (a = f['' + x + y + s]) ?
-                a
-                : (
-                    p = 0,
-                        [[-2, -1], [-2, 1], [-1, -2], [-1, 2]].map(([i, j]) =>
-                            p += f(m, n, s - 1, x + i, y + j) / 8 + f(m, n, s - 1, x - i, y - j) / 8
-                        ),
-                        f['' + x + y + s] = p
-                )
-            :
-            1
+function knightOnBoardProbability(n, m, steps, x, y) {
+    let result = 1;
+    let store = {};
+
+    store['' + x + y] = 1;
+
+    while (steps--) {
+        const b = {};
+
+        result = 0;
+
+        for (let [k, v] of Object.entries(store)) {
+            const i = +k[0];
+            const j = +k[1];
+
+            for (const I of [-2, -1, 1, 2]) {
+                for (const J of [2 / I | 0, -2 / I | 0]) {
+                    const newX = i + I;
+                    const newY = j + J;
+
+                    k = '' + newX + newY;
+
+                    if (0 <= newX && 0 <= newY && n > newX && m > newY) {
+                        const t = v / 8;
+                        b[k] = (b[k] || 0) + t;
+                        result += t;
+                    }
+                }
+            }
+        }
+
+        store = b;
+    }
+
+    return result;
+}
